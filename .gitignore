@@ -1,0 +1,7 @@
+node_modules
+test-results
+allure-results
+allure-report
+my-ext
+playwright-report
+test-result.json
