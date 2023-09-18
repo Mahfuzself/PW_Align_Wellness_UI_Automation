@@ -132,7 +132,7 @@ test.skip("TC - 09 : Validate Align well user edit button is working.",async({pa
         await AlignwellPage.ClickResendLink()
         await AlignwellPage.verifyResendLinkSuccessfullyMessage()
 })
-test.only("TC - 10 : Validate Align well user deactivate button is working.",async({page,loginPage,AlignwellPage})=>{
+test("TC - 10 : Validate Align well user deactivate button is working.",async({page,loginPage,AlignwellPage})=>{
     await page.goto("/login")
     await page.waitForTimeout(4000)
     await page.reload()

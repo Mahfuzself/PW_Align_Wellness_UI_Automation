@@ -1,0 +1,16 @@
+{
+    "FirstName" : [
+        {"firstName": "Max", "lastName": "Mustermann", "age": 40},
+        {"firstName": "Hagbard", "lastName": "Celine", "age": 44},
+        {"firstName": "Karl", "lastName": "Koch", "age": 42}
+     ],
+     "LastName" : [
+        {"lastName": "Mustermann"},
+        {"lastName": "Celine"},
+        {"lastName": "Koch"}
+     ]
+}
+
+   
+
+   

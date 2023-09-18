@@ -51,7 +51,7 @@ test("001Login -> 06 Validate invalid username or password alert.",async({page,l
     await loginPage.verifyUserListText()
     await page.waitForTimeout(3000)
 })
-test.only("001Login -> 07 Validate account blocked alert.",async({page,loginPage})=>{
+test("001Login -> 07 Validate account blocked alert.",async({page,loginPage})=>{
     await page.goto("/login")
     await page.reload()
     await loginPage.inputBlockedEmail(data.inputblockedemail)

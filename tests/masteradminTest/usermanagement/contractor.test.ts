@@ -68,7 +68,7 @@ test("TC -06 : Validate contractor successfully deactivated.",async({page,loginP
     await ContactorPage.clickActivate()
     
 })
-test.only("TC -07 : Validate contractor mail resend link button is working.",async({page,loginPage,ContactorPage,AlignwellPage})=>{
+test("TC -07 : Validate contractor mail resend link button is working.",async({page,loginPage,ContactorPage,AlignwellPage})=>{
     await page.goto("/login")
     await page.waitForTimeout(4000)
     await page.reload()
