@@ -1,7 +1,8 @@
 import test,{ expect } from "@fixtures/basepages";
 import * as data from "testData/login.cred.json"
 import * as name from "testData/Name.json"
-let browser, page
+const { chromium } = require('playwright');
+import { Browser, Page } from '@playwright/test';
 test("TC - 01 : Verify Empty vendor name alert text.",async({page,loginPage,vendoradminPage})=>{
     await page.goto("/login")
     await loginPage.login(data.validstandardusername, data.commonpassword)
@@ -89,15 +90,32 @@ test("TC 07 : Validate add new vendor Physical Therapy  and Nutritionists catego
     await vendoradminPage.InputVendorContactPerson_PhoneNumber_BD()
     await vendoradminPage.clickAddNewVendorBtn()
 })
-test.only("TC 08 : Validate crated Physical Therappy and Nutritionists category vendor shows on vendor list.",async({page,loginPage,vendoradminPage})=>{
+test("TC 08 : Validate crated Physical Therappy and Nutritionists category vendor shows on vendor list.",async({page,loginPage,vendoradminPage,context})=>{
     await page.goto("/login")
+    await page.waitForTimeout(3000)
     await loginPage.login(data.validstandardusername, data.commonpassword)
+    await page.waitForTimeout(3000)
     await vendoradminPage.clickVendorPage()
     await vendoradminPage.verifyVendorListText()
     await vendoradminPage.clickCreatedvendorDetails()
     await vendoradminPage.clickVendorDetails_EmployeeList()
-    await vendoradminPage.copyEmployeeEmail()
+    const email : any = await vendoradminPage.copyEmployeeEmail()
     await vendoradminPage.clickVendorPage()
     await vendoradminPage.verifyVendorListText()
     await vendoradminPage.pasteEmployeeEmail()
+    await page.keyboard.press("Control+t")
+    //blank tap Open same browser
+    // const Page = await context.newPage()
+    // const [newtab] = await Promise.all([
+    //     await Page.goto("https://yopmail.com/")
+    //   ])
+    await page.goto("https://yopmail.com/")
+    await page.locator("//input[@placeholder='Enter your inbox here']").fill(email)
+    await page.locator("//i[@class='material-icons-outlined f36']").click()
+    await page.waitForTimeout(3000)
+    const ele = await page.frameLocator("#ifmail").locator("(//div[@id='mail']//a)[1]")
+    // await expect(ele).toContainText("ACTIVATE YOUR ACCOUNT")
+    await ele.click()
+    await page.waitForTimeout(10000)
+
 })

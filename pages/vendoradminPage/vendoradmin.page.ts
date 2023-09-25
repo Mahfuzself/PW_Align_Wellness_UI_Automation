@@ -258,8 +258,9 @@ export default class vendoradminPage {
     }
     async copyEmployeeEmail(){
         const ele = await this.page.locator("((//tbody[@class='border-top-0']//td)[3])[1]").selectText()
-       var email = await this.page.keyboard.press("Control+C")
-        await console.log(email)
+       await this.page.keyboard.press("Control+C")
+       const clipboardText1 = await this.page.evaluate("navigator.clipboard.readText()");
+       return clipboardText1;
     }
     async pasteEmployeeEmail(){
         await this.page.locator("//input[@placeholder='Search ...']").click()
