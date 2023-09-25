@@ -16,20 +16,20 @@ var ReportDate = date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + 
 const config: PlaywrightTestConfig = {
   testDir: './tests',
   testMatch: [
-  //  "001login.test.ts",
+   "001login.test.ts",
    "alignwelluser.test.ts",
-  //  "contractor.test.ts",
-  //  "healthcareprovider.test.ts",
-  //  "vendoradmin.test.ts"
-  //  "003events.test.ts",
-  //  "company.test.ts",
-  //  "employeeuser.test.ts",
-  //  "usermanagement/Contractor.test.ts",
-  // "usermanagement/healthcareprovider.test.ts",
-  // "broker.test.ts",
-  //  "usermanagement/alignuser/masteradmin.test.ts",
-  // "usermanagement/alignuser/standard.test.ts",
-  // "PortalTest/vendor.test.ts",
+   "contractor.test.ts",
+   "healthcareprovider.test.ts",
+   "vendoradmin.test.ts"
+   "003events.test.ts",
+   "company.test.ts",
+   "employeeuser.test.ts",
+   "usermanagement/Contractor.test.ts",
+  "usermanagement/healthcareprovider.test.ts",
+  "broker.test.ts",
+   "usermanagement/alignuser/masteradmin.test.ts",
+  "usermanagement/alignuser/standard.test.ts",
+  "PortalTest/vendor.test.ts",
   
 
 
