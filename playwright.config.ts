@@ -17,7 +17,7 @@ const config: PlaywrightTestConfig = {
   testDir: './tests',
   testMatch: [
    "001login.test.ts",
-  //  "alignwelluser.test.ts",
+   "alignwelluser.test.ts",
   //  "contractor.test.ts",
   //  "healthcareprovider.test.ts",
   //  "vendoradmin.test.ts",
