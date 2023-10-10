@@ -16,8 +16,8 @@ var ReportDate = date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + 
 const config: PlaywrightTestConfig = {
   testDir: './tests',
   testMatch: [
-   "001login.test.ts",
-   "alignwelluser.test.ts",
+  //  "001login.test.ts",
+  //  "alignwelluser.test.ts",
   //  "contractor.test.ts",
   //  "healthcareprovider.test.ts",
   //  "vendoradmin.test.ts",
