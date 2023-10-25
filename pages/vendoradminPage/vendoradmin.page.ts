@@ -28,13 +28,16 @@ export default class vendoradminPage {
 
     }
     async clickVendorPage(){
+        
         const ele = this.page.locator(this.vendorAdminPage_Elements.vedorPage)
+        
         try {
-            await ele.click()
-            await this.page.waitForTimeout(10000)
+            await ele.click({force:true})
+            await this.page.waitForTimeout(5000)
         } catch (error) {
             throw new Error(`AlignWellNess | Master Admin User Login | Vendor | Vendor Page elements is not visible , Could not found locotor : ${error}`)
         }
+        await this.page.waitForTimeout(10000)
     }
     async clickAddVendorBtn(){
         const ele = this.page.locator(this.vendorAdminPage_Elements.AddVendor)
@@ -148,6 +151,7 @@ export default class vendoradminPage {
         await this.page.locator("//input[@placeholder='vendor categories']").click()
         await this.page.waitForTimeout(1000)
         await this.page.locator("#Nutritionists").check()
+        await this.page.waitForTimeout(1000)
     }
     async upload_vendor_ProfileImages() {
         // const filePath0 = "testData/Images/company.jpg"
@@ -172,6 +176,7 @@ export default class vendoradminPage {
     async inputVendorContactPersonFirstName(FirstName : string){
        const ele =  await this.page.locator(this.vendorAdminPage_Elements.InputFirstName)
        try {
+        await ele.click()
           await ele.fill(FirstName)
        } catch (error) {
          throw new Error(`AlignWellNess | Master Admin User Login | Vendor page | Add Vendor |contact person first name input elements is not visible , Could not found locotor : ${error}`)
@@ -180,6 +185,7 @@ export default class vendoradminPage {
     async inputVendorContactPersonLastName(LastName : string){
         const ele =  await this.page.locator(this.vendorAdminPage_Elements.InputLastName)
         try {
+            await ele.click()
            await ele.fill(LastName)
         } catch (error) {
           throw new Error(`AlignWellNess | Master Admin User Login | Vendor page | Add Vendor |contact person last name input elements is not visible , Could not found locotor : ${error}`)
@@ -266,6 +272,12 @@ export default class vendoradminPage {
         await this.page.locator("//input[@placeholder='Search ...']").click()
         await this.page.keyboard.press("Control+V")
         await this.page.waitForTimeout(5000)
+    }
+    async LogoutUser(){
+        await this.page.locator("//h5[@class='user-name']").click()
+        await this.page.waitForTimeout(3000)
+        await this.page.locator("//button[text()=' Logout ']").click()
+        await this.page.waitForTimeout(3000)
     }
      
 }

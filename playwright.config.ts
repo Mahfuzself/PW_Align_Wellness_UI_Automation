@@ -20,7 +20,7 @@ const config: PlaywrightTestConfig = {
   //  "alignwelluser.test.ts",
   //  "contractor.test.ts",
   //  "healthcareprovider.test.ts",
-  //  "vendoradmin.test.ts",
+   "vendoradmin.test.ts",
   //  "003events.test.ts",
   //  "company.test.ts",
   //  "employeeuser.test.ts",

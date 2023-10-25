@@ -69,7 +69,7 @@ test("TC 06 : Validate crated Dentists category vendor shows on vendor list.",as
     await vendoradminPage.copyEmployeeEmail()
     await vendoradminPage.pasteEmployeeEmail()
 })
-test("TC 07 : Validate add new vendor Physical Therapy  and Nutritionists category successfully created.",async({page,loginPage,vendoradminPage})=>{
+test.only("TC 07 : Validate add new vendor Physical Therapy  and Nutritionists category successfully created.",async({page,loginPage,vendoradminPage})=>{
     await page.goto("/login")
     await loginPage.login(data.validstandardusername, data.commonpassword)
     await vendoradminPage.clickVendorPage()
@@ -93,7 +93,7 @@ test("TC 07 : Validate add new vendor Physical Therapy  and Nutritionists catego
 test("TC 08 : Validate crated Physical Therappy and Nutritionists category vendor shows on vendor list.",async({page,loginPage,vendoradminPage,context})=>{
     await page.goto("/login")
     await page.waitForTimeout(3000)
-    await loginPage.login(data.validstandardusername, data.commonpassword)
+    await loginPage.login(data.validmasteradminusername, data.commonpassword)
     await page.waitForTimeout(3000)
     await vendoradminPage.clickVendorPage()
     await vendoradminPage.verifyVendorListText()
@@ -103,19 +103,22 @@ test("TC 08 : Validate crated Physical Therappy and Nutritionists category vendo
     await vendoradminPage.clickVendorPage()
     await vendoradminPage.verifyVendorListText()
     await vendoradminPage.pasteEmployeeEmail()
-    await page.keyboard.press("Control+t")
+    await vendoradminPage.LogoutUser()
+
+    // await page.keyboard.press("Control+t")
     //blank tap Open same browser
-    // const Page = await context.newPage()
-    // const [newtab] = await Promise.all([
-    //     await Page.goto("https://yopmail.com/")
-    //   ])
-    await page.goto("https://yopmail.com/")
-    await page.locator("//input[@placeholder='Enter your inbox here']").fill(email)
-    await page.locator("//i[@class='material-icons-outlined f36']").click()
-    await page.waitForTimeout(3000)
-    const ele = await page.frameLocator("#ifmail").locator("(//div[@id='mail']//a)[1]")
+    const Page = await context.newPage()
+    const [newtab] = await Promise.all([
+        await Page.goto("https://yopmail.com/")
+      ])
+    // await page.goto("https://yopmail.com/")
+    await Page.locator("//input[@placeholder='Enter your inbox here']").fill(email)
+    await Page.locator("//i[@class='material-icons-outlined f36']").click()
+    await Page.waitForTimeout(3000)
+    const ele = await Page.frameLocator("#ifmail").locator("(//div[@id='mail']//a)[1]")
     // await expect(ele).toContainText("ACTIVATE YOUR ACCOUNT")
     await ele.click()
-    await page.waitForTimeout(10000)
+    await Page.waitForTimeout(10000)
+    await page.bringToFront()
 
 })
