@@ -119,6 +119,12 @@ test("TC 08 : Validate crated Physical Therappy and Nutritionists category vendo
     // await expect(ele).toContainText("ACTIVATE YOUR ACCOUNT")
     await ele.click()
     await Page.waitForTimeout(10000)
+    // const Page = await context.newPage()
+    // const [newtab] = await Promise.all([
+    //     newtab
+    //     await Page.goto("https://yopmail.com/")
+    //   ])
+    await Page.locator('//button[text()=" Continue "]').click()
     await page.bringToFront()
 
 })

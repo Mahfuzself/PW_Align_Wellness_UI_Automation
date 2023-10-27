@@ -15,7 +15,7 @@ export default class AlignwelluserPage {
         AddUserEmailField: "//input[@placeholder='Please type your email address']",
         EmptyUserRoleText: "//div[text()=' User role cannot be empty. ']",
         MasterAdmin : "#userRole",
-        InvalidEmailText:"//h4[text()='Email invalid ']",
+        InvalidEmailText:'//span[text()="Invalid email format"]',
         AlignWellUserSearch: "//input[@placeholder='Search ...']",
         SerchFirstName : "//p[@class='user-name']",
         columnArrowup:"//i[@class='d-inline-flex icon-arrow-up']",
@@ -121,16 +121,16 @@ export default class AlignwelluserPage {
         const ele = await this.page.locator(this.AlignwellnessuserElements.InvalidEmailText)
         //await this.page.waitForSelector(this.AlignwellnessuserElements.InvalidEmailText)
         try {
-            await expect.soft(ele).toContainText("Email invalid ")
+            await expect.soft(ele).toContainText("Invalid email format")
         } catch (error) {
-            throw new Error(`Invalid email text element is not visible, Could not found locotor : ${Error}`)
+            throw new Error(`Usermanagement || Alignwell User || Add User || Input invaliad email || click Add new User || Invalid email text element is not visible, Could not found locotor : ${Error}`)
         }
     }
-    async InputRendomEmail(){
-        const email = "Test"
-        const randomString = new Date().getTime();
-        const testEmail = `${email}${randomString}@yopmail.com`;
-        await this.page.locator(this.AlignwellnessuserElements.AddUserEmailField).fill(testEmail)
+    async InputRendomEmail(rendomemail : string){
+        // const email = "Test"
+        // const randomString = new Date().getTime();
+        // const testEmail = `${email}${randomString}@yopmail.com`;
+        await this.page.locator(this.AlignwellnessuserElements.AddUserEmailField).fill(rendomemail)
     }
     async SearchAlignUser_By_FirstName(){
       const ele = await this.page.locator(this.AlignwellnessuserElements.AlignWellUserSearch)
@@ -180,4 +180,22 @@ export default class AlignwelluserPage {
         await this.page.locator("//button[text()=' Yes ']").click()
         await this.page.waitForTimeout(2000)
      }
+     async  getRandomInt(min: number, max: number) {
+        return Math.floor(Math.random() * (max - min)) + min;
+  }
+     async capFirst(string:String) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+     async generateFirstName(){
+        let name1 = ["Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred", "Frank", "George", "Hal", "Hank", "Ike", "John", "Jack", "Joe", "Larry", "Monte", "Matthew", "Mark", "Nathan", "Otto", "Paul", "Peter", "Roger", "Roger", "Steve", "Thomas", "Tim", "Ty", "Victor", "Walter","Lulloff", "Maki", "Martin", "McGinnis", "Mills", "Moody", "Moore", "Napier", "Nelson", "Norquist", "Nuttle", "Olson", "Ostrander", "Reamer", "Reardon", "Reyes", "Rice", "Ripka", "Roberts", "Rogers", "Root", "Sandstrom", "Sawyer", "Schlicht", "Schmitt", "Schwager", "Schutz", "Schuster", "Tapia", "Thompson", "Tiernan", "Tisler"];
+        let firstname =  await this.capFirst(name1[ await this.getRandomInt(0, name1.length + 1)])
+        return firstname;
+        
+    }
+    async generateLastName(){
+        let name2 = ["Anderson", "Ashwoon", "Aikin", "Bateman", "Bongard", "Bowers", "Boyd", "Cannon", "Cast", "Deitz", "Dewalt", "Ebner", "Frick", "Hancock", "Haworth", "Hesch", "Hoffman", "Kassing", "Knutson", "Lawless", "Lawicki", "Mccord", "McCormack", "Miller", "Myers", "Nugent", "Ortiz", "Orwig", "Ory", "Paiser", "Pak", "Pettigrew", "Quinn", "Quizoz", "Ramachandran", "Resnick", "Sagar", "Schickowski", "Schiebel", "Sellon", "Severson", "Shaffer", "Solberg", "Soloman", "Sonderling", "Soukup", "Soulis", "Stahl", "Sweeney", "Tandy", "Trebil", "Trusela", "Trussel", "Turco", "Uddin", "Uflan", "Ulrich", "Upson", "Vader", "Vail", "Valente", "Van Zandt", "Vanderpoel", "Ventotla", "Vogal", "Wagle", "Wagner", "Wakefield", "Weinstein", "Weiss", "Woo", "Yang", "Yates", "Yocum", "Zeaser", "Zeller", "Ziegler", "Bauer", "Baxster", "Casal", "Cataldi", "Caswell", "Celedon", "Chambers", "Chapman", "Christensen", "Darnell", "Davidson", "Davis", "DeLorenzo", "Dinkins", "Doran", "Dugelman", "Dugan", "Duffman", "Eastman", "Ferro", "Ferry", "Fletcher", "Fietzer", "Hylan", "Hydinger", "Illingsworth", "Ingram", "Irwin", "Jagtap", "Jenson", "Johnson", "Johnsen", "Jones", "Jurgenson", "Kalleg", "Kaskel", "Keller", "Leisinger", "LePage", "Lewis", "Linde"];
+        let lastname =  await this.capFirst(name2[ await this.getRandomInt(0, name2.length + 1)])
+        return lastname
+        
+    }
 }

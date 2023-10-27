@@ -17,16 +17,16 @@ const config: PlaywrightTestConfig = {
   testDir: './tests',
   testMatch: [
   //  "001login.test.ts",
-  //  "alignwelluser.test.ts",
+   "alignwelluser.test.ts",
   //  "contractor.test.ts",
   //  "healthcareprovider.test.ts",
-   "vendoradmin.test.ts",
-  //  "003events.test.ts",
+  // "broker.test.ts",
   //  "company.test.ts",
+  //  "vendoradmin.test.ts",
+  //  "003events.test.ts",
   //  "employeeuser.test.ts",
   //  "usermanagement/Contractor.test.ts",
   // "usermanagement/healthcareprovider.test.ts",
-  // "broker.test.ts",
   //  "usermanagement/alignuser/masteradmin.test.ts",
   // "usermanagement/alignuser/standard.test.ts",
   // "PortalTest/vendor.test.ts",
@@ -103,24 +103,31 @@ const config: PlaywrightTestConfig = {
 
 
 
-  // projects: [
-  //   {
-  //     name: 'chromium',
-  //     use: {
-  //       ...devices['Desktop Chrome'],
-  //     },
-  //   },
+//   projects: [
+//     // {
+//     //   name: 'chromium',
+//     //   use: {
+//     //     ...devices['Desktop Chrome'],
+//     //   },
+//     // },
 
-  //   // {
-  //   //   name: 'firefox',
-  //   //   use: {
-  //   //     ...devices['Desktop Firefox'],
-  //   //   },
-  //   // }
-  // ]
-  // reporter: [ ["html"], { outputFolder: ('./playwright-report/'+ ReportDate)}]
-  // retries : 1,
-  // workers : 2
+//     // {
+//     //   name: 'firefox',
+//     //   use: {
+//     //     ...devices['Desktop Firefox'],channel:'firefox',
+//     //   },
+//     // },
+//   // {
+//   //   name: 'MSEdge',
+//   //   use: { ...devices['Desktop Edge'], channel: 'msedge' ,
+//   // } // or "msedge-beta" or 'msedge-dev'
+
+//   // },
+   
+//   ]
+//   // reporter: [ ["html"], { outputFolder: ('./playwright-report/'+ ReportDate)}]
+//   // retries : 1,
+//   // workers : 2
 
 
 };
