@@ -14,8 +14,10 @@ export default class LoginPage {
         EmptyUsernameText:"//div[text()=' Email address cannot be empty. ']",
         InvalidUsernameAlert:"//div[text()=' Email address is not a valid email. ']",
         UserListText : "//h1[text()='User List']",
-        incorrectUserName: "//h4[text()='Incorrect user name ']",
-        AccountBlockedAlert: "//h4[text()='Your account has been Locked. Please contact the system administrator. ']"
+        UserDashbooard:"//h4[text()='Dashboard']",
+        incorrectUserName: "//h4[text()='Incorrect user name']",
+        AccountBlockedAlert: "//h4[text()='Your account has been Locked. Please contact the system administrator.']",
+        InvalidFormat:"//span[text()='Invalid email address format']",
     }
     async inputusernamefield(uname : string){
         await this.enterEmail(uname);
@@ -102,7 +104,7 @@ export default class LoginPage {
     async invalidusernameformat(){
         await this.page.locator(this.LoginPage_Elements.email).fill("qa_automation")
     }
-    async verifyEmpltyPassword_Alert(){
+    async verifyEmptyPassword_Alert(){
          const ele = await this.page.locator(this.LoginPage_Elements.EmptyPasswordText)
          if(await ele.isVisible()){
             await expect(ele).toContainText("Password cannot be empty.")
@@ -110,16 +112,16 @@ export default class LoginPage {
 
     }
     async clickEmptyPasswordIcon(){
-        const ele = await this.page.locator(this.LoginPage_Elements.PasswordEmptyIcon)
+        const ele = await this.page.locator(this.LoginPage_Elements.PasswordEmptyIcon).last()
         if(await ele.isVisible()){
-           await ele.click()
+           await ele.last().click()
         }
 
    }
    async clickEmptyUsernameIcon(){
-    const ele = await this.page.locator(this.LoginPage_Elements.EmptyusernameIcon)
+    const ele = await this.page.locator(this.LoginPage_Elements.EmptyusernameIcon).first()
     if(await ele.isVisible()){
-       await ele.click()
+       await ele.first().click()
     }
 
 }
@@ -143,6 +145,13 @@ async verifyUserListText(){
        await expect(ele).toContainText("User List")
     }
     else throw new Error('User list text is not visible')
+}
+async verifyAfterSuccessfullyLoginDashboardText(){
+    const ele = await this.page.locator(this.LoginPage_Elements.UserDashbooard)
+    if(await ele.isVisible()){
+       await expect(ele).toContainText("Dashboard")
+    }
+    else throw new Error('User Dashboard text is not visible')
 }
 async inputDoesnotexistEmail(wrongemail : string){
     const ele = await this.page.locator(this.LoginPage_Elements.email)
@@ -172,6 +181,14 @@ async verifyLockedAccountAlert(){
         await expect(ele).toContainText("Your account has been Locked. Please contact the system administrator.")
     } catch (error) {
         throw new Error(`Blocked account alert is not visible : ${Error}`)
+    }
+}
+async verifyInvaliadEMailFormat(){
+    const ele = await this.page.locator(this.LoginPage_Elements.InvalidFormat)
+    try {
+        await expect.soft(ele).toContainText("Invalid email address format")
+    } catch (error) {
+        throw new Error(`Sigin | Input invalid email format| Could not found locator, ${error}`)
     }
 }
  

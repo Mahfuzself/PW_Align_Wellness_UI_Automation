@@ -13,6 +13,7 @@
     "doesnotexistmail": "hello@yopmail.com",
     "wrongpassword": "hello@1234",
     "inputblockedemail" : "johnosborne@yopmail.com",
-    "ValidVendor" : "donstrickland@yopmail.com"
+    "ValidVendor" : "donstrickland@yopmail.com",
+    "Invalidformatemail" : "testauto@yopmail"
 
 } 

@@ -1,30 +1,67 @@
 import test, { expect } from "@fixtures/basepages";
 import * as data from "testData/login.cred.json"
 //import LoginPage from "pages/loginPage/Login.page";
-test("001Login  -> 01 Validate empty password alert without input password field",async({page,loginPage})=>{
+import { Page } from '@playwright/test';
+test.only("001Login  -> 01 Validate Login all test cases",async({page,loginPage})=>{
     await page.goto("/login")
-    await loginPage.inputusernamefield(data.validusername)
-    await loginPage.clickSubmittBtn()
-    await loginPage.clickEmptyPasswordIcon()
-    await loginPage.verifyEmpltyPassword_Alert()
-    await page.waitForTimeout(3000)
-})
-test("001Login -> 02 Validate empty username alert without input username field.",async({page,loginPage})=>{
-    // await page.goto('/admin/#/sign-in')
-    await page.goto("/login")
-    await loginPage.inputpasswordfield(data.validpassword)
-    await loginPage.clickSubmittBtn()
-    await loginPage.clickEmptyUsernameIcon()
-    await loginPage.verifyEmptyUsername_Alert()
-    await page.waitForTimeout(3000)
-})
-test("001Login -> 03 Validate empty username and empty password alert.",async({page,loginPage})=>{
-    // await page.goto('/admin/#/sign-in')
-    await page.goto("/login")
-    await loginPage.clickSubmittBtn()
-    await loginPage.verifyInvalaidUsernameFormat_Alert()
-    await loginPage.verifyEmptyUsername_Alert()
-    await page.waitForTimeout(3000)
+    await test.step("01 Validate empty password alert without input password field",async()=>{
+        await loginPage.inputusernamefield(data.validusername)
+        await loginPage.clickSubmittBtn()
+        await loginPage.clickEmptyPasswordIcon()
+        await loginPage.verifyEmptyPassword_Alert()
+        await page.waitForTimeout(3000)
+    })
+    await test.step(" 02 Validate empty username alert without input username field.",async()=>{
+        await page.locator('//input[@placeholder="Email/Username"]').clear()
+        await loginPage.inputpasswordfield(data.validpassword)
+        await loginPage.clickSubmittBtn()
+        await loginPage.clickEmptyUsernameIcon()
+        await loginPage.verifyEmptyUsername_Alert()
+        await page.waitForTimeout(3000)
+    })
+    await test.step(" 03 Validate empty username and empty password alert. ",async()=>{  
+        await page.locator('//input[@placeholder="Password"]').clear()
+        await loginPage.clickSubmittBtn()
+        await loginPage.clickEmptyUsernameIcon()
+        await loginPage.verifyInvalaidUsernameFormat_Alert()
+        await loginPage.clickEmptyPasswordIcon()
+        await loginPage.verifyEmptyUsername_Alert()
+        await page.waitForTimeout(3000)
+    })
+    await test.step("04 Validate invalid format alert for username/email field.",async()=>{
+        await page.locator('//input[@placeholder="Email/Username"]').clear()
+        await loginPage.inputusernamefield(data.Invalidformatemail)
+        await loginPage.clickEmptyUsernameIcon()
+        await loginPage.verifyInvaliadEMailFormat()
+    })
+    await test.step("05 Validate invalid username alert.",async()=>{
+        await loginPage.inputDoesnotexistEmail(data.doesnotexistmail)
+        await loginPage.inputpasswordfield("Test@1234")
+        await loginPage.clickSubmittBtn()
+        await loginPage.verifyInvalidUserName()
+        await page.waitForTimeout(3000)
+    })
+    await test.step("05 Validate invalid password format alert.",async()=>{
+    })
+    await test.step("07 Validate account blocked alert.",async()=>{
+        await page.locator('//input[@placeholder="Password"]').clear()
+        await loginPage.inputBlockedEmail(data.inputblockedemail)
+        await loginPage.inputpasswordfield(data.commonpassword)
+        await loginPage.clickSubmittBtn()
+        await page.waitForTimeout(7000)
+        await loginPage.verifyLockedAccountAlert()
+    })
+    await test.step("08 Validate successfully login with valid username and password.",async()=>{
+        await page.locator('//input[@placeholder="Password"]').clear()
+        await page.locator('//input[@placeholder="Email/Username"]').clear()
+        await loginPage.login(data.validstandardusername, data.commonpassword)
+        await page.waitForTimeout(7000)
+        await loginPage.verifyAfterSuccessfullyLoginDashboardText()
+        await page.waitForTimeout(3000)
+    })
+
+   
+
 })
 test.skip("001Login -> 04 Validate invalid format alert for username/email field.",async({page,loginPage})=>{
     // await page.goto('/admin/#/sign-in')
@@ -65,7 +102,7 @@ test("001Login -> 08 Validate successfully login with valid username and passwor
     await page.waitForTimeout(4000)
     await page.reload()
     await loginPage.login(data.validstandardusername, data.commonpassword)
-    await loginPage.verifyUserListText()
+    await loginPage.verifyAfterSuccessfullyLoginDashboardText()
     await page.waitForTimeout(3000)
 })
 
