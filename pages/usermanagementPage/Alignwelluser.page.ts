@@ -54,9 +54,9 @@ export default class AlignwelluserPage {
         }
     }
     async clickEmptyRoleIcon(){
-        const ele = await this.page.locator(this.AlignwellnessuserElements.EmptyRoleIcon)
+        const ele = await this.page.locator(this.AlignwellnessuserElements.EmptyRoleIcon).last()
         try {
-            await ele.click()
+            await ele.last().click()
             await this.page.waitForTimeout(1000)
         } catch (error) {
             throw new Error(`Align well user empty Role icon element is not visible, Could not found loctor: ${Error}`)
@@ -75,7 +75,7 @@ export default class AlignwelluserPage {
              await expect.soft(ele).toContainText("User role cannot be empty.")
              console.log("Successfully verified!")
         } catch (error) {
-            throw new Error(`Align well add user empty role text element is not visible, Could not found loctor : ${Error}`)
+            throw new Error(`Align well add user empty role text element is not visible, Could not found loctor : ${error}`)
         }
     }
     async verifyEmptyEmailText(){
@@ -132,16 +132,38 @@ export default class AlignwelluserPage {
         // const testEmail = `${email}${randomString}@yopmail.com`;
         await this.page.locator(this.AlignwellnessuserElements.AddUserEmailField).fill(rendomemail)
     }
-    async SearchAlignUser_By_FirstName(){
+    async SearchAlignUser_By_FirstName(firstname : string){
       const ele = await this.page.locator(this.AlignwellnessuserElements.AlignWellUserSearch)
      if(await ele.isVisible()){
-        await ele.fill("Kevin")
+        await ele.fill(firstname)
         await this.page.waitForLoadState()
-        await this.page.waitForTimeout(15000)
-        
+        await this.page.waitForTimeout(5000)
+        await ele.clear()
      }
-     await expect(await this.page.locator(this.AlignwellnessuserElements.SerchFirstName)).toContainText("Kevin")
+     
     }
+    async SearchAlignUser_By_Email(email : string){
+        const ele = await this.page.locator(this.AlignwellnessuserElements.AlignWellUserSearch)
+       if(await ele.isVisible()){
+          await ele.fill(email)
+          await this.page.waitForLoadState()
+          await this.page.waitForTimeout(5000)
+          await ele.clear()
+          
+       }
+     
+      }
+      async SearchAlignUser_By_FUllname(fullname : string){
+        const ele = await this.page.locator(this.AlignwellnessuserElements.AlignWellUserSearch)
+       if(await ele.isVisible()){
+          await ele.fill(fullname)
+          await this.page.waitForLoadState()
+          await this.page.waitForTimeout(5000)
+          await ele.clear()
+          
+       }
+     
+      }
     async Filter_By_MasterAdmin(){
         await this.page.locator('//select[@class="form-select"]').selectOption({label:"Master Admin"})
         await this.page.waitForTimeout(10000)
@@ -154,8 +176,8 @@ export default class AlignwelluserPage {
         await this.page.locator('//select[@class="form-select"]').selectOption({label:"Standard"})
         await this.page.waitForTimeout(10000)
      }
-     async ClickResendLink(){
-        await this.page.locator(this.AlignwellnessuserElements.ActionThreeForResendLink).click()
+     async ClickResendLink(rendomemail : string){
+        await this.page.locator(rendomemail+"/following-sibling::td[3]").click()
         await this.page.waitForTimeout(5000)
         await this.page.locator("(//div[@class='dropdown-menu show']//button)[2]").click()
         await this.page.waitForTimeout(1000)

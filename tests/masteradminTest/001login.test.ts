@@ -2,7 +2,7 @@ import test, { expect } from "@fixtures/basepages";
 import * as data from "testData/login.cred.json"
 //import LoginPage from "pages/loginPage/Login.page";
 import { Page } from '@playwright/test';
-test.only("001Login  -> 01 Validate Login all test cases",async({page,loginPage})=>{
+test("001Login  -> 01 Validate Login all test cases",async({page,loginPage})=>{
     await page.goto("/login")
     await test.step("01 Validate empty password alert without input password field",async()=>{
         await loginPage.inputusernamefield(data.validusername)

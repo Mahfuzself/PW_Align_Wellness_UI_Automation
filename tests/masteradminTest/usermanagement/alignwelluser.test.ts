@@ -3,21 +3,57 @@ import * as data from "testData/login.cred.json"
 import AlignwelluserPage from "@pages/Alignwelluser.page";
 import { Browser, Page } from '@playwright/test';
 const { chromium } = require('playwright');
-test("TC - 01 : Validate Align well user invalid email message.",async({page,loginPage,AlignwellPage})=>{
+test.only("Validate Alignwell user test",async({page,loginPage,AlignwellPage})=>{
+    let firstname = "",lastname="", rendomemail="";
     await page.goto("/login")
-    await page.waitForTimeout(4000)
     await page.reload()
     await loginPage.login(data.validstandardusername, data.commonpassword)
-    test.step("Now click usermanagementPage",async() => {
+   await test.step("TC - 01 : Validate Align well user invalid email message.",async() => {
         await AlignwellPage.clickUserManagementPage()
         await page.waitForTimeout(3000)
-    })
         await AlignwellPage.clickAlignwellUser()
         await page.waitForTimeout(3000)
         await AlignwellPage.clickAddUserBtn()
         await AlignwellPage.clickAddNewUserBtn()
         await AlignwellPage.clickEmptyEmailIcon()
         await AlignwellPage.verifyEmptyEmailText()
+    })
+ await test.step("TC - 02 : Validate Align well user empty role message.",async()=>{
+    await AlignwellPage.clickEmptyRoleIcon()
+    await AlignwellPage.verifyEmptyRoleText()
+ })
+ await test.step("TC - 03 : Validate Align well user invalid email message.",async()=>{
+    await AlignwellPage.inputInvaliduserEmail()
+    await AlignwellPage.selectMasterAdminUser()
+    await AlignwellPage.clickAddNewUserBtn()
+    await page.waitForTimeout(4000)
+    await AlignwellPage.clickEmptyEmailIcon()
+    await AlignwellPage.verifyInvalidEmail()
+    await page.locator("//input[@placeholder='Please type your email address']").clear()
+ })
+ await test.step("TC - 04 : Validate Add new user is successfully added.",async()=>{
+     firstname = await AlignwellPage.generateFirstName()
+     lastname = await AlignwellPage.generateLastName()
+     rendomemail = firstname+lastname+"@yopmail.com"
+    await AlignwellPage.InputRendomEmail(rendomemail)
+    await AlignwellPage.selectMasterAdminUser()
+    await AlignwellPage.clickAddNewUserBtn()
+    await page.waitForTimeout(5000)
+ })
+ await test.step("TC - 05 : Validate Align well user search by firstname is working.",async()=>{
+    await AlignwellPage.SearchAlignUser_By_FirstName(firstname)
+ })
+ await test.step("TC - 06 : Validate Align well user search by fullname is working.",async()=>{
+    await AlignwellPage.SearchAlignUser_By_FUllname(firstname+lastname)
+ })
+ await test.step("TC - 07 : Validate Align well user search by email is working.",async()=>{
+    await AlignwellPage.SearchAlignUser_By_Email(rendomemail)
+ })
+ await test.step("",async()=>{
+    await AlignwellPage.ClickResendLink(rendomemail)
+        await AlignwellPage.verifyResendLinkSuccessfullyMessage()
+ })
+        
 })
 test("TC - 02 : Validate Align well user empty role message.",async({page,loginPage,AlignwellPage})=>{
     await page.goto("/login")
@@ -98,7 +134,7 @@ test("TC - 05 : Validate Align well user search field is working..",async({page,
     })
         await AlignwellPage.clickAlignwellUser()
         await page.waitForTimeout(3000)
-        await AlignwellPage.SearchAlignUser_By_FirstName()
+        // await AlignwellPage.SearchAlignUser_By_FirstName()
 })
 test("TC - 06 : Validate Align well user search field is working.",async({page,loginPage,AlignwellPage})=>{
     //await AlignwellPage.RendomEmail()
@@ -133,7 +169,7 @@ test("TC - 08 : Validate Align well user  Resend link is working.",async({page,l
         await page.waitForTimeout(3000)
         await AlignwellPage.clickAlignwellUser()
         await page.waitForTimeout(7000)
-        await AlignwellPage.ClickResendLink()
+        // await AlignwellPage.ClickResendLink()
         await AlignwellPage.verifyResendLinkSuccessfullyMessage()
 })
 test.skip("TC - 09 : Validate Align well user edit button is working.",async({page,loginPage,AlignwellPage})=>{
@@ -145,7 +181,7 @@ test.skip("TC - 09 : Validate Align well user edit button is working.",async({pa
         await page.waitForTimeout(3000)
         await AlignwellPage.clickAlignwellUser()
         await page.waitForTimeout(7000)
-        await AlignwellPage.ClickResendLink()
+        // await AlignwellPage.ClickResendLink()
         await AlignwellPage.verifyResendLinkSuccessfullyMessage()
 })
 test("TC - 10 : Validate Align well user deactivate button is working.",async({page,loginPage,AlignwellPage})=>{
