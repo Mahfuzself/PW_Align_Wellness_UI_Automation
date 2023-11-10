@@ -26,6 +26,7 @@ export default class AlignwelluserPage {
         ActionThreeForResendLink:"//td[text()=' ralphmcmillen@yopmail.com ']/following-sibling::td[3]",
         ResendLinkSuccessfullyMessage:"//h4[text()='Link has been resend successfully']",
         DeactivateAlignUser:"//td[text()=' jonathanblunt@yopmail.com ']/following-sibling::td[3]",
+        //td[text()=' jonathanblunt@yopmail.com ']/following-sibling::td[3]
 
     }
     async clickAlignwellUser(){
@@ -117,6 +118,10 @@ export default class AlignwelluserPage {
        await this.page.locator(this.AlignwellnessuserElements.MasterAdmin).selectOption({label:"Master Admin"})
        await this.page.waitForTimeout(2000)
     }
+    async selectAdminUser(){
+        await this.page.locator(this.AlignwellnessuserElements.MasterAdmin).selectOption({label:"Admin"})
+        await this.page.waitForTimeout(2000)
+     }
     async verifyInvalidEmail(){
         const ele = await this.page.locator(this.AlignwellnessuserElements.InvalidEmailText)
         //await this.page.waitForSelector(this.AlignwellnessuserElements.InvalidEmailText)
@@ -149,6 +154,7 @@ export default class AlignwelluserPage {
           await this.page.waitForLoadState()
           await this.page.waitForTimeout(5000)
           await ele.clear()
+          await this.page.waitForTimeout(2000)
           
        }
      
@@ -177,18 +183,47 @@ export default class AlignwelluserPage {
         await this.page.waitForTimeout(10000)
      }
      async ClickResendLink(rendomemail : string){
-        await this.page.locator(rendomemail+"/following-sibling::td[3]").click()
+       rendomemail = rendomemail.toLowerCase()
+    //    console.log(`//td[text()=' ${rendomemail} ']/following-sibling::td[3]`)
+        await this.page.locator(`//td[text()=' ${rendomemail} ']/following-sibling::td[3]`).click()
+        // console.log(`//td[text()=' ${rendomemail} ']/following-sibling::td[3]`)
         await this.page.waitForTimeout(5000)
         await this.page.locator("(//div[@class='dropdown-menu show']//button)[2]").click()
         await this.page.waitForTimeout(1000)
         await this.page.locator("//button[text()=' Yes ']").click()
         await this.page.waitForTimeout(5000)
      }
+     async ClickEditAlignUser(rendomemail : string){
+        rendomemail = rendomemail.toLowerCase()
+     //    console.log(`//td[text()=' ${rendomemail} ']/following-sibling::td[3]`)
+         await this.page.locator(`//td[text()=' ${rendomemail} ']/following-sibling::td[3]`).click()
+         // console.log(`//td[text()=' ${rendomemail} ']/following-sibling::td[3]`)
+         await this.page.waitForTimeout(5000)
+         await this.page.locator("(//div[@class='dropdown-menu show']//button)[1]").click()
+         await this.page.waitForTimeout(1000)
+        //  await this.page.locator("//button[text()=' Yes ']").click()
+        //  await this.page.waitForTimeout(5000)
+      }
+      async clikUpdateUserBtn(){
+        const ele = await this.page.locator("//button[text()=' Update User ']")
+        try {
+            await ele.click()
+        } catch (error) {
+            throw new Error(`UserManagement | Align User | Specefic User | Action Three Dot | Edit | Update user button locotor is not visible : ${Error}`);
+        }
+      }
      async verifyResendLinkSuccessfullyMessage(){
         await expect(this.page.locator(this.AlignwellnessuserElements.ResendLinkSuccessfullyMessage)).toContainText("Link has been resend successfully")
         await this.page.waitForTimeout(1000)
      }
-     async ClickDeactivateAndActivate(){
+     async ClickDeactivateAndActivate(email : string){
+        const ele = await this.page.locator(this.AlignwellnessuserElements.AlignWellUserSearch)
+        if(await ele.isVisible()){
+           await ele.fill(email)
+           await this.page.waitForLoadState()
+           await this.page.waitForTimeout(2000)
+           
+        }
         await this.page.locator(this.AlignwellnessuserElements.DeactivateAlignUser).click()
         await this.page.waitForTimeout(5000)
         await this.page.locator("(//div[@class='dropdown-menu show']//button)[2]").click()
@@ -200,7 +235,7 @@ export default class AlignwelluserPage {
         await this.page.locator("(//div[@class='dropdown-menu show']//button)[2]").click()
         await this.page.waitForTimeout(3000)
         await this.page.locator("//button[text()=' Yes ']").click()
-        await this.page.waitForTimeout(2000)
+        await this.page.waitForTimeout(5000)
      }
      async  getRandomInt(min: number, max: number) {
         return Math.floor(Math.random() * (max - min)) + min;
