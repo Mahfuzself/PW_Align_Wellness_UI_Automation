@@ -50,7 +50,7 @@ test("TC - 01 : Validate master admin align user succefully login.",async({page,
    await loginPage.login(data.validmasteradminusername,data.commonpassword)
    await masteradminPage.verifyMasterAdminUserName_AndrewMiller()
 })
-test.only("TC - 02 : Validate master admin event management module is visible.",async({page,loginPage,masteradminPage})=>{
+test("TC - 02 : Validate master admin event management module is visible.",async({page,loginPage,masteradminPage})=>{
    await page.goto("/login")
    await loginPage.login(data.validmasteradminusername,data.commonpassword)
    await masteradminPage.verifyMasterAdminUserName_AndrewMiller()

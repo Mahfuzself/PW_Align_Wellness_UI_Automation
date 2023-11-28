@@ -14,6 +14,7 @@
     "wrongpassword": "hello@1234",
     "inputblockedemail" : "johnosborne@yopmail.com",
     "ValidVendor" : "donstrickland@yopmail.com",
-    "Invalidformatemail" : "testauto@yopmail"
+    "Invalidformatemail" : "testauto@yopmail",
+    "2FAUser":"johnshaver@yopmail.com"
 
 } 

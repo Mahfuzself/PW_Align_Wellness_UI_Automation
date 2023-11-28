@@ -30,7 +30,7 @@ export default class LoginPage {
         await this.enterLoginPassword(password);
         await this.page.waitForLoadState()
         await this.clickSubmittBtn();
-        await this.page.waitForTimeout(5000)
+        await this.page.waitForTimeout(3000)
          //await this.page.reload()
     }
     async loginNegative(invalidusername: string, invalidpassword: string) {

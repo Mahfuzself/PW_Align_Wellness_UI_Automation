@@ -40,7 +40,6 @@ export default class AlignwelluserPage {
         const ele = await this.page.locator(this.AlignwellnessuserElements.AddUser)
         try {
             await ele.click({button:"left",delay: 1000})
-            await this.page.waitForTimeout(3000)
         } catch (error) {
             throw new Error(`Align well add user element is not visible, Could not found loctor  : ${Error}`)
         }
@@ -67,7 +66,6 @@ export default class AlignwelluserPage {
         await this.page.waitForTimeout(1000)
         const ele = await this.page.locator(this.AlignwellnessuserElements.usermanagementPage)
             await ele.click()
-            console.log("Hello")
     }
     async verifyEmptyRoleText(){
         const ele = await this.page.locator(this.AlignwellnessuserElements.EmptyUserRoleText)

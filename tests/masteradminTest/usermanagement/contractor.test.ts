@@ -8,10 +8,18 @@ test("TC -01 : Validate contractor empty email message.",async({page,loginPage,C
     await loginPage.login(data.validstandardusername, data.commonpassword)
     await AlignwellPage.clickUserManagementPage()
     await ContactorPage.clickContractorPage()
-    await ContactorPage.clickAddContactor()
-    await ContactorPage.clickAddNewContractor()
-    await ContactorPage.clickEmailAlertIcon()
-    await ContactorPage.verifyEmptyEmailText()
+    await test.step("TC -01 : Validate contractor empty email message.",async()=>{
+        await ContactorPage.clickAddContactor()
+        await ContactorPage.clickAddNewContractor()
+        await ContactorPage.clickEmailAlertIcon()
+        await ContactorPage.verifyEmptyEmailText()
+    })
+    await test.step("TC -02 : Validate add new contarctor invalid email format message.",async()=>{
+        await ContactorPage.inputInvalidContractorEmail()
+        await ContactorPage.clickAddNewContractor()
+        await ContactorPage.VerifyInvalidEmailText()
+    })
+    
 })
 test("TC -02 : Validate add new contarctor invalid email format message.",async({page,loginPage,ContactorPage,AlignwellPage})=>{
     await page.goto("/login")

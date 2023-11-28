@@ -11,7 +11,7 @@ export default class ContractorPage {
         EmailAlertIcon: "//i[contains(@class,'icon-warning-o text-danger')]",
         EmptyemailMessage:"//div[text()=' Email cannot be empty. ']",
         inputContarctorEmail: "//input[@placeholder='Please type your email address']",
-        InvalidEmailText:"me-3",
+        InvalidEmailText:"//span[text()='Invalid email format']",
         ContractorSerchField : "//input[@placeholder='Search ...']",
         SpecificActionThreeDot:"//td[text()=' zubindeep@yopmail.com ']/following-sibling:: td[3]",
         SpecificActionThreeDotResendLink:"//td[text()=' hellocontractor@yopmial.com ']/following-sibling:: td[3]",
@@ -76,7 +76,7 @@ export default class ContractorPage {
         const ele = await this.page.locator(this.ContractorPage_Elements.InvalidEmailText)
         try {
             await this.page.waitForTimeout(2000)
-            await expect.soft(ele).toContainText("Email invalid")
+            await expect.soft(ele).toContainText("Invalid email format")
         } catch (error) {
             throw new Error(`Invalid email text element is not visible, Could not found locotor : ${error}`)
         }
