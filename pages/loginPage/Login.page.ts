@@ -29,8 +29,9 @@ export default class LoginPage {
         await this.enterEmail(username);
         await this.enterLoginPassword(password);
         await this.page.waitForLoadState()
+        await this.page.waitForTimeout(1000)
         await this.clickSubmittBtn();
-        await this.page.waitForTimeout(3000)
+        await this.page.waitForTimeout(5000)
          //await this.page.reload()
     }
     async loginNegative(invalidusername: string, invalidpassword: string) {
@@ -39,7 +40,7 @@ export default class LoginPage {
         await this.clickSubmittBtn();
     }
     async enterEmail(emailaddress: string) {
-        await this.page.locator(this.LoginPage_Elements.email).type(emailaddress);
+        await this.page.locator(this.LoginPage_Elements.email).type(emailaddress,{delay: 100});
             // input[type='text'] 
     }
     async enterLoginPassword(password: string) {

@@ -7,30 +7,31 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context}
     let firstname = "",lastname="", rendomemail="";
         await page.goto("/login")
         await page.reload()
-        // await loginPage.inputusernamefield(data["2FAUser"])
-        // await loginPage.enterLoginPassword("Test@1234")
-        // await loginPage.clickSubmittBtn()
-        // await page.waitForTimeout(5000)
-        // const Page = await context.newPage()
-        // await Page.goto("https://dev.alignwell.com/get-key-value/!24@automation")
-        //     await Page.reload()
-        //     // rendomemail= rendomemail. toLowerCase( );
-        //     await Page.locator("#EmailPhone").fill(data["2FAUser"])
-        //     await Page.waitForTimeout(5000)
-        //     await Page.locator("#submitBtn").click({force:true})
-        //     await Page.locator("#otpValue").focus();
-        //     // await Page.keyboard.press('Control+A');
-        //     await Page.locator("#otpValue").selectText();
-        //     await Page.keyboard.press("Control+C");
-        //     const otp : string = await page.evaluate("navigator.clipboard.readText()");
-        //   await  page.bringToFront()
-        // //   await  page.locator("#otp_0_m8c3rjp9n7elpi32k8y").focus()
-        // //   await page.evaluate("navigator.clipboard.writeText()");
-        // //   console.log( await page.keyboard.press("Control+V"))
-        //  await   page.locator("(//input[@placeholder='-'])[1]").click()
-        //             await page.keyboard.press("Control+V")
-        //             await page.waitForTimeout(7000)
-        await loginPage.login(data.validstandardusername, data.commonpassword)
+        await loginPage.inputusernamefield(data["2FAUser"])
+        await loginPage.enterLoginPassword("Test@1234")
+        await loginPage.clickSubmittBtn()
+        await page.waitForTimeout(5000)
+        const Page = await context.newPage()
+        await Page.goto("https://dev.alignwell.com/get-key-value/!24@automation")
+            await Page.reload()
+            // rendomemail= rendomemail. toLowerCase( );
+            const mail = data["2FAUser"]
+            await Page.locator("#EmailPhone").type(mail,{delay:100})
+            await Page.waitForTimeout(5000)
+            await Page.locator("#submitBtn").click({force:true})
+            await Page.locator("#otpValue").focus();
+            // await Page.keyboard.press('Control+A');
+            await Page.locator("#otpValue").selectText();
+            await Page.keyboard.press("Control+C");
+            const otp : string = await page.evaluate("navigator.clipboard.readText()");
+          await  page.bringToFront()
+        //   await  page.locator("#otp_0_m8c3rjp9n7elpi32k8y").focus()
+        //   await page.evaluate("navigator.clipboard.writeText()");
+        //   console.log( await page.keyboard.press("Control+V"))
+         await   page.locator("(//input[@placeholder='-'])[1]").click()
+                    await page.keyboard.press("Control+V")
+                    await page.waitForTimeout(7000)
+        // await loginPage.login(data.validstandardusername, data.commonpassword)
         await AlignwellPage.clickUserManagementPage()
         await page.waitForTimeout(1000)
         await AlignwellPage.clickAlignwellUser()
@@ -129,8 +130,9 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context}
             await page3.keyboard.press("Control+C")
             await Page.bringToFront()
             await Page.locator("(//input[@placeholder='-'])[1]").click();
+            await Page.waitForTimeout(2000)
             await Page.keyboard.press("Control+V")
-            await Page.waitForTimeout(3000)
+            await Page.waitForTimeout(5000)
             await Page.locator('//input[@name="InputPhone"]').fill("8057651210")
             
             await Page.locator("//button[text()=' Continue ']").click()
@@ -146,12 +148,13 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context}
             await page3.keyboard.press("Control+C")
             await Page.bringToFront()
             await Page.locator("(//input[@placeholder='-'])[1]").click();
+            await Page.waitForTimeout(2000)
             await Page.keyboard.press("Control+V")
             await Page.bringToFront()
             await Page.locator("#firstName").fill(firstname)
             await Page.locator('//input[@formcontrolname="LastName"]').fill(lastname)
-                await page.locator("#gender").selectOption({label:"Male"})
-                await page.waitForTimeout(2000)
+            await page.locator("#gender").selectOption({label:"Male"})
+            await page.waitForTimeout(2000)
             
             // await Page.locator("//input[@placeholder='Enter your inbox here']").fill(rendomemail)
             // await Page.locator("//i[@class='material-icons-outlined f36']").click()

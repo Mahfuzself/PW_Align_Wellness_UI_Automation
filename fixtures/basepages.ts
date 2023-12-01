@@ -10,7 +10,7 @@ import masteradminPage from '@pages/alignuser/MasterAdmin.page';
 import standardPage from '@pages/alignuser/Standard.page';
 import vendoradminPage from '@pages/vendoradmin.page';
 import vendorportalPage from '@pages/vendorportal.page';
-
+import userRegistrationPage from '@pages/registration.page';
 const test = baseTest.extend<{
     loginPage: LoginPage;
     eventsPage : EventsPage;
@@ -25,6 +25,7 @@ const test = baseTest.extend<{
     standardPage : standardPage
     vendorportalPage : vendorportalPage
     vendoradminPage : vendoradminPage
+    registrationPage : userRegistrationPage
 
 }>(
     {
@@ -66,7 +67,11 @@ const test = baseTest.extend<{
                 },
                 vendoradminPage : async({page},use) =>{
                     await use (new vendoradminPage(page))
+                },
+                registrationPage :async ({page},use) => {
+                    await use (new userRegistrationPage(page))
                 }
+
             },
 )
 export default test;

@@ -18,7 +18,8 @@
               "pages/eventmanagementPage/*",
               "pages/clientsPage/*",
               "pages/portalPage/*",
-              "pages/vendoradminPage/*"
+              "pages/vendoradminPage/*",
+              "pages/userRegistrationPage/*"
                
             ],
             "@fixtures/*": [

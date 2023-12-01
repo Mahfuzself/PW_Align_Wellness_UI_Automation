@@ -64,6 +64,7 @@ const config: PlaywrightTestConfig = {
     navigationTimeout: 30 * 7000,
     // baseURL: "https://qa-1.testingdxp.com/",
     baseURL:"https://dev.alignwell.com/",
+    // baseURL : "https://demo.alignwell.com/login",
     launchOptions: {
       args: [
         // '--use-fake-device-for-media-stream',
