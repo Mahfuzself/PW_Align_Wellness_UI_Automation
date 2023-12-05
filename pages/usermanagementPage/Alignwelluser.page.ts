@@ -26,15 +26,19 @@ export default class AlignwelluserPage {
         ActionThreeForResendLink:"//td[text()=' ralphmcmillen@yopmail.com ']/following-sibling::td[3]",
         ResendLinkSuccessfullyMessage:"//h4[text()='Link has been resend successfully']",
         DeactivateAlignUser:"//td[text()=' jonathanblunt@yopmail.com ']/following-sibling::td[3]",
+        AddUserText:'//h4[text()="Add User"]',
+        EmailLabel:'//label[@for="Email"]',
+        UserRoleLabe:'//label[@for="userRole"]',
+        EmailPlaceHolder:'//input[@placeholder="Please type your email address"]',
+        AddUserButtoonText:'//button[text()=" Add New User "]',
+        AddUserPopupCloseBtn:' //i[@class="icon-close"]',
         //td[text()=' jonathanblunt@yopmail.com ']/following-sibling::td[3]
 
     }
     async clickAlignwellUser(){
         const ele = await this.page.locator(this.AlignwellnessuserElements.AlignwellUser)
-            await ele.click()
-            await this.page.waitForTimeout(5000)
-       
-
+            await ele.click({delay:1000})
+            await this.page.waitForTimeout(1000)
     }
     async clickAddUserBtn(){
         const ele = await this.page.locator(this.AlignwellnessuserElements.AddUser)
@@ -113,7 +117,8 @@ export default class AlignwelluserPage {
         }
     }
     async selectMasterAdminUser(){
-       await this.page.locator(this.AlignwellnessuserElements.MasterAdmin).selectOption({label:"Master Admin"})
+        await this.page.waitForTimeout(1000)
+       await this.page.locator(this.AlignwellnessuserElements.MasterAdmin).selectOption({label:"Master Admin"},{timeout:1000})
        await this.page.waitForTimeout(2000)
     }
     async selectAdminUser(){
@@ -252,5 +257,61 @@ export default class AlignwelluserPage {
         let lastname =  await this.capFirst(name2[ await this.getRandomInt(0, name2.length + 1)])
         return lastname
         
+    }
+    async verifyAdduserText(){
+        const ele = await this.page.locator(this.AlignwellnessuserElements.AddUserText)
+        try {
+            await expect(ele).toContainText("Add User")
+
+        } catch (error) {
+            throw new Error(`Login | UserManagement | Align User | Add User | Add user text is not visible in Add user: ${Error}`)
+        }
+    }
+    async verifyInputEmailLabelText(){
+        const ele = await this.page.locator(this.AlignwellnessuserElements.EmailLabel)
+        try {
+            await expect(ele).toContainText("Email")
+
+        } catch (error) {
+            throw new Error(`Login | UserManagement | Align User | Add User | Input email label Email text is not visible in Add user : ${Error}`)
+        }
+    }
+    async verifyUserRoleLabelText(){
+        const ele = await this.page.locator(this.AlignwellnessuserElements.UserRoleLabe)
+        try {
+            await expect(ele).toContainText("Role")
+
+        } catch (error) {
+            throw new Error(`Login | UserManagement | Align User | Add User |Use Role label Role text is not visible in Add user:${Error}`)
+        }
+    }
+    async verifyAddUserPlaceholerText(){
+        const ele = await this.page.locator(this.AlignwellnessuserElements.EmailPlaceHolder)
+        try {
+            await this.page.getByPlaceholder("Please type your email address")
+            // await expect(ele).toConta("Please type your email address")
+
+        } catch (error) {
+            throw new Error(`Login | UserManagement | Align User | Add User |Input Align User Placeholder text is not visible in Add user :${Error}`)
+        }
+    }
+    async verifyAddNewUserBtntext(){
+        const ele = await this.page.locator(this.AlignwellnessuserElements.AddUserButtoonText)
+        try {
+            await expect(ele).toContainText("Add New User")
+
+        } catch (error) {
+            throw new Error(`Login | UserManagement | Align User | Add User | Add New User button text is not visible in Add user :${Error}`)
+        }
+    }
+    async clickCloseAddUserPopup(){
+        
+        const ele = await this.page.locator(this.AlignwellnessuserElements.AddUserPopupCloseBtn)
+        try {
+            await ele.click({delay:1000})
+
+        } catch (error) {
+            throw new Error(`Login | UserManagement | Align User | Add User | Add New User popup close button locator is not visible in Add user :${Error}`)
+        }
     }
 }

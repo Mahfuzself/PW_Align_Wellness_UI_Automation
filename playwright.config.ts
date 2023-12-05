@@ -81,7 +81,7 @@ const config: PlaywrightTestConfig = {
     browserName: 'chromium',
     channel: 'chrome',
     screenshot :'only-on-failure',
-    viewport: { width: 1920, height: 1080 },
+    viewport: { width: 1920, height: 780 },
     ignoreHTTPSErrors: true,
 
     //  permissions: ["camera"],

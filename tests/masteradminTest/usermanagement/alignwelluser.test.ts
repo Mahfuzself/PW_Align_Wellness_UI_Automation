@@ -2,9 +2,11 @@ import test, { expect } from "@fixtures/basepages";
 import * as data from "testData/login.cred.json"
 import AlignwelluserPage from "@pages/Alignwelluser.page";
 import { Browser, Page } from '@playwright/test';
+import { url } from "inspector";
+// import userRegistrationPage from '../../../pages/userRegistrationPage/registration.page';
 const { chromium } = require('playwright');
-test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context})=>{
-    let firstname = "",lastname="", rendomemail="";
+test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context,registrationPage})=>{
+    let firstname = "",lastname="", rendomemail="",fullname = "";
         await page.goto("/login")
         await page.reload()
         await loginPage.inputusernamefield(data["2FAUser"])
@@ -12,29 +14,41 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context}
         await loginPage.clickSubmittBtn()
         await page.waitForTimeout(5000)
         const Page = await context.newPage()
-        await Page.goto("https://dev.alignwell.com/get-key-value/!24@automation")
-            await Page.reload()
-            // rendomemail= rendomemail. toLowerCase( );
-            const mail = data["2FAUser"]
-            await Page.locator("#EmailPhone").type(mail,{delay:100})
-            await Page.waitForTimeout(5000)
-            await Page.locator("#submitBtn").click({force:true})
-            await Page.locator("#otpValue").focus();
-            // await Page.keyboard.press('Control+A');
-            await Page.locator("#otpValue").selectText();
-            await Page.keyboard.press("Control+C");
-            const otp : string = await page.evaluate("navigator.clipboard.readText()");
-          await  page.bringToFront()
-        //   await  page.locator("#otp_0_m8c3rjp9n7elpi32k8y").focus()
-        //   await page.evaluate("navigator.clipboard.writeText()");
-        //   console.log( await page.keyboard.press("Control+V"))
-         await   page.locator("(//input[@placeholder='-'])[1]").click()
-                    await page.keyboard.press("Control+V")
-                    await page.waitForTimeout(7000)
-        // await loginPage.login(data.validstandardusername, data.commonpassword)
+        await registrationPage.gotoForOtpValue(Page)
+        await registrationPage.fillOtpMail(Page,data["2FAUser"])
+        // await Page.locator("#EmailPhone").type(mail,{delay:100})
+        await Page.waitForTimeout(5000)
+        await registrationPage.clickOtpMailSubmittBtn(Page)
+        // await Page.locator("#submitBtn").click({force:true})
+        await Page.locator("#otpValue").focus();
+        await Page.locator("#otpValue").selectText();
+        await Page.keyboard.press("Control+C");
+        await Page.close()
+        await  page.bringToFront()
+        await loginPage.clickOTPInputField()
+        // await  page.locator("(//input[@placeholder='-'])[1]").click()
+        await page.keyboard.press("Control+V")
+        await page.waitForTimeout(4000)
         await AlignwellPage.clickUserManagementPage()
         await page.waitForTimeout(1000)
         await AlignwellPage.clickAlignwellUser()
+        await test.step("Verify Add New User popup",async()=>{
+            await AlignwellPage.clickAddUserBtn()
+            await AlignwellPage.verifyAdduserText()
+            await AlignwellPage.verifyInputEmailLabelText()
+            await AlignwellPage.verifyAddUserPlaceholerText()
+            await AlignwellPage.verifyUserRoleLabelText()
+            await AlignwellPage.clickCloseAddUserPopup()
+        })
+        // await test.step("TC - 01 : Validate Add Align User popup.",async() => {
+        //             await AlignwellPage.clickUserManagementPage()
+        //             await page.waitForTimeout(3000)
+        //             await AlignwellPage.clickAlignwellUser()
+        //             await AlignwellPage.clickAddUserBtn()
+        //             await AlignwellPage.clickAddNewUserBtn()
+        //             await AlignwellPage.clickEmptyEmailIcon()
+        //             await AlignwellPage.verifyEmptyEmailText()
+        //         })
 //    await test.step("TC - 01 : Validate Align well user invalid email message.",async() => {
 //         await AlignwellPage.clickUserManagementPage()
 //         await page.waitForTimeout(3000)
@@ -99,28 +113,21 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context}
         await page.waitForTimeout(1000)
         const Page = await context.newPage()
         await Page.bringToFront()
-        await Page.goto(`https://dev.alignwell.com/registration?Email=${rendomemail}`)
-            //  await Page.locator("//input[@placeholder='Enter your inbox here']").fill(rendomemail)
-            //  await Page.locator("//i[@class='material-icons-outlined f36']").click()
-            // // const ele = await Page.frameLocator("#ifmail").locator("(//div[@id='mail']//a)[1]")//div[@id='mail']//a)[1]
-            // // await ele.click()
-          
-            //  const [newTab] = await Promise.all([
-            //      Page.waitForEvent('popup'),
-            //      await Page.frameLocator("#ifmail").locator("(//div[@id='mail']//a)[1]").click(),
-            //     //  
-                
-            //  ]);
-             await Page.locator("//button[text()=' Continue ']").click()
+        const URL   = `https://dev.alignwell.com/registration?Email=${rendomemail}`
+        await registrationPage.gotonewRegisteredMail(Page,URL)
+        //  await Page.goto(`https://dev.alignwell.com/registration?Email=${rendomemail}`)
+        await registrationPage.clickContinueBtn(Page)
+            //  await Page.locator("//button[text()=' Continue ']").click()
              await Page.waitForTimeout(5000)
              const page3 = await context.newPage()
              await page3.bringToFront()
-            
-            await page3.goto("https://dev.alignwell.com/get-key-value/!24@automation")
+            await registrationPage.gotoForOtpValue(page3)
+            // await page3.goto("https://dev.alignwell.com/get-key-value/!24@automation")
             await page3.reload()
             rendomemail= rendomemail. toLowerCase( );
-            await page3.locator("#EmailPhone").fill(rendomemail)
-            await page3.waitForTimeout(2000)
+            await registrationPage.fillOtpMail(page3,rendomemail)
+            // await page3.locator("#EmailPhone").fill(rendomemail)
+            await registrationPage.clickOtpMailSubmittBtn(page3)
             await page3.locator("#submitBtn").click({force:true})
             await page3.waitForTimeout(1000)
             // const modifier = await page3.locator("#otpValue")
@@ -153,8 +160,24 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context}
             await Page.bringToFront()
             await Page.locator("#firstName").fill(firstname)
             await Page.locator('//input[@formcontrolname="LastName"]').fill(lastname)
-            await page.locator("#gender").selectOption({label:"Male"})
-            await page.waitForTimeout(2000)
+            await page.waitForTimeout(3000)
+            await Page.locator('#gender').selectOption({label:"Male"},{timeout : 1000})
+            await Page.waitForTimeout(2000)
+            await registrationPage.inputDOB(Page)
+            await registrationPage.selectDesignation(Page)
+            await registrationPage.selectDepartment(Page)
+            await registrationPage.inputAddress(Page)
+            await registrationPage.clickContinue(Page)
+            await registrationPage.inputPassword(Page)
+            await registrationPage.inputConfirmPassword(Page)
+            await registrationPage.clickRegisterSubmitBtn(Page)
+            fullname = firstname+" "+lastname;
+            console.log(fullname)
+            await registrationPage.verifyAcoknowledge(Page)
+            await registrationPage.clickAcceptBtn(Page)
+            // await registrationPage.verifyUserRegisteredSuccessfully(Page)
+            await registrationPage.verifyAddNewRegisteredUser(Page,fullname)
+
             
             // await Page.locator("//input[@placeholder='Enter your inbox here']").fill(rendomemail)
             // await Page.locator("//i[@class='material-icons-outlined f36']").click()

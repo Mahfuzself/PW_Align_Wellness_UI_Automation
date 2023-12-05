@@ -70,7 +70,7 @@ export default class LoginPage {
         await Promise.all([
             this.page.waitForNavigation,
             // this.page.click("button:has-text('Login')"),
-            await this.page.locator('//button[text()=" Submit "]').click()
+            await this.page.locator('//button[text()=" Submit "]').click({delay : 1000})
         ])
     }
     async verifyCueLogoIsVisible() {
@@ -191,6 +191,9 @@ async verifyInvaliadEMailFormat(){
     } catch (error) {
         throw new Error(`Sigin | Input invalid email format| Could not found locator, ${error}`)
     }
+}
+async clickOTPInputField(){
+    await  this.page.locator("(//input[@placeholder='-'])[1]").click()
 }
  
 }

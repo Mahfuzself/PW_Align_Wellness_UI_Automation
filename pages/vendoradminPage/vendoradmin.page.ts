@@ -37,7 +37,7 @@ export default class vendoradminPage {
         } catch (error) {
             throw new Error(`AlignWellNess | Master Admin User Login | Vendor | Vendor Page elements is not visible , Could not found locotor : ${error}`)
         }
-        await this.page.waitForTimeout(10000)
+        await this.page.waitForTimeout(2000)
     }
     async clickAddVendorBtn(){
         const ele = this.page.locator(this.vendorAdminPage_Elements.AddVendor)
@@ -52,7 +52,7 @@ export default class vendoradminPage {
         const ele = this.page.locator(this.vendorAdminPage_Elements.AddNewVendorBtn)
         try {
             await ele.click()
-            await this.page.waitForTimeout(20000)
+            await this.page.waitForTimeout(2000)
         } catch (error) {
             throw new Error(`AlignWellNess | Master Admin User Login | Vendor | Add Vendor | Add new Vendor Page elements is not visible , Could not found locotor : ${error}`)
         }
@@ -140,7 +140,7 @@ export default class vendoradminPage {
     async checkedVendorCategory_Dentist(){
         await this.page.locator("//input[@placeholder='vendor categories']").click()
         await this.page.waitForTimeout(1000)
-        await this.page.locator("#Dentists").check()
+        await this.page.locator("#Dentists").setChecked(true)
     }
     async checkedVendorCategory_PhysicalTherapy(){
         await this.page.locator("//input[@placeholder='vendor categories']").click()
@@ -155,7 +155,7 @@ export default class vendoradminPage {
     }
     async upload_vendor_ProfileImages() {
         // const filePath0 = "testData/Images/company.jpg"
-        const fileChooserPromise = this.page.waitForEvent('filechooser');
+         const fileChooserPromise = this.page.waitForEvent('filechooser');
         await this.page.locator("(//i[@class='icon-upload'])[1]").click();
         const fileChooser = await fileChooserPromise;
         await fileChooser.setFiles('./testData/images/vendor.png');
@@ -278,6 +278,14 @@ export default class vendoradminPage {
         await this.page.waitForTimeout(3000)
         await this.page.locator("//button[text()=' Logout ']").click()
         await this.page.waitForTimeout(3000)
+    }
+    async CloseAddVendorPopup(userName : string){
+        const ele = await this.page.locator("i.icon-close")
+        try {
+            await ele.click({button:"left",timeout:500})
+        } catch (error) {
+            throw new Error(`Login with  username : ${userName}, Password : Test@1234 | Click Vendor Page | Add Vendor | Add vendor popup close button is not visible : ${Error} `)
+        }
     }
      
 }
