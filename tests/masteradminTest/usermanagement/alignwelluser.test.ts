@@ -80,7 +80,18 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context,
         await AlignwellPage.InputRendomEmail(rendomemail)
         await AlignwellPage.selectMasterAdminUser()
         await AlignwellPage.clickAddNewUserBtn()
-        await page.waitForTimeout(3000)
+        await page.waitForTimeout(5000)
+    })
+    await test.step("Edit align well user",async()=>{
+        rendomemail= rendomemail. toLowerCase( );
+         await AlignwellPage.EditAddNewUser(rendomemail)
+         firstname = await AlignwellPage.generateFirstName()
+        lastname = await AlignwellPage.generateLastName()
+        rendomemail = firstname+lastname+"@yopmail.com"
+        await AlignwellPage.InputRendomEmail(rendomemail)
+        await AlignwellPage.clikUpdateUserBtn()
+
+        //td[text()=" jamiejohnson@yopmail.com "]/following-sibling::td[3]
     })
 //     await test.step("TC - 05 : Validate Align well user search by firstname is working.",async()=>{
 //         await AlignwellPage.SearchAlignUser_By_FirstName(firstname)
@@ -104,9 +115,9 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context,
     //       await AlignwellPage.selectAdminUser()
     //       await AlignwellPage.clikUpdateUserBtn()
     // })
-//     await test.step("TC - 10 : Validate Align well user deactivate button is working.",async()=>{
-//         await AlignwellPage.ClickDeactivateAndActivate("jonathanblunt@yopmail.com")
-//     })
+    // await test.step("TC - 10 : Validate Align well user deactivate button is working.",async()=>{
+    //     await AlignwellPage.ClickDeactivateAndActivate("jonathanblunt@yopmail.com")
+    // })
     await test.step("Validate successfully registration for alignwell master admin user",async()=>{
         await page.locator("//div[@class='user-thumb']").first().click()
         await page.locator("//button[text()=' Logout ']").click()
@@ -177,6 +188,9 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context,
             await registrationPage.clickAcceptBtn(Page)
             // await registrationPage.verifyUserRegisteredSuccessfully(Page)
             await registrationPage.verifyAddNewRegisteredUser(Page,fullname)
+            await registrationPage.clickUserManagementPage(Page)
+            await registrationPage.clickAlignwellUser(Page)
+            await registrationPage.verifyAddNewUserAfterRegistered_Active(Page,rendomemail)
 
             
             // await Page.locator("//input[@placeholder='Enter your inbox here']").fill(rendomemail)

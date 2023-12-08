@@ -162,6 +162,20 @@ export default class AlignwelluserPage {
        }
      
       }
+      async EditAddNewUser(searchmail : string){
+        await this.page.waitForTimeout(3000)
+        const ele = await this.page.locator(`//td[text()=" ${searchmail} "]/following-sibling::td[3]`)
+        console.log(ele)
+        //td[text()=" jamiejohnson@yopmail.com "]/following-sibling::td[3]//
+            await this.page.locator("//input[@placeholder='Search ...']").type(searchmail,{delay:100})
+            await this.page.locator("//input[@placeholder='Search ...']").clear()
+            await this.page.waitForTimeout(1000)
+            await this.page.locator("//input[@placeholder='Search ...']").type(searchmail,{delay:100})
+            await this.page.waitForTimeout(1000)
+            await ele.click({delay : 500})
+            await this.page.locator("//button[text()=' Edit ']").first().click()
+
+      }
       async SearchAlignUser_By_FUllname(fullname : string){
         const ele = await this.page.locator(this.AlignwellnessuserElements.AlignWellUserSearch)
        if(await ele.isVisible()){
@@ -312,6 +326,14 @@ export default class AlignwelluserPage {
 
         } catch (error) {
             throw new Error(`Login | UserManagement | Align User | Add User | Add New User popup close button locator is not visible in Add user :${Error}`)
+        }
+    }
+    async clickForUpdateUser(){
+        const ele = await this.page.locator('//button[text()=" Update User "]')
+        try {
+              await ele.click({delay : 1000})
+        } catch (error) {
+            throw new Error(`Login | UserManagement | Align User | Add User | Added user Three Dot | Edit User | Add New User Update user button locator is not visible in Add user :${Error}`)
         }
     }
 }

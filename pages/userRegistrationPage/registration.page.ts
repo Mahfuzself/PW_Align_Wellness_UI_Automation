@@ -133,5 +133,24 @@ export default class userRegistrationPage {
         throw new Error(`Login Align Master Admin | User Management | Align User | Input Exit Email | Business Email already in use message could not found : ${Error}`)
       }
     }
+    async verifyAddNewUserAfterRegistered_Active(Page : Page,user : string){
+      const ele =   await Page.locator(`//td[text()=" ${user} "]/following-sibling::td[2]/div`)//td[text()=" ottojohnsen@yopmail.com "]/following-sibling::td[2]/div
+      try {
+             await expect(ele).toContainText("Active")
+      } catch (error) {
+        throw new Error(`Login Align Master Admin | User Management | Align User | Added new user | Edit User mail | Completed user registration | Add new user stutus "Active" could not found : ${Error}`)
+      }
+    }
+    async clickUserManagementPage(Page : Page){
+      await this.page.waitForTimeout(1000)
+      const ele = await Page.locator("//a[.='User Management']")
+          await ele.click()
+  }
+  async clickAlignwellUser(Page : Page){
+    await Page.reload()
+    const ele = await Page.locator("//a[contains(text(),'Align Well User')]")
+        await ele.click({delay:1000})
+        await this.page.waitForTimeout(1000)
+}
 
 }
