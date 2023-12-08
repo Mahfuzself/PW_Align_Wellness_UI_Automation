@@ -1,6 +1,4 @@
 {
-    "username": "qa-1",
-    "password": "mFkTylCDNC",
     "validusername" : "aubreyalexander@yopmail.com",
     "validpassword" : "Test12345@",
     "validusername2": "andrewmiller@yopmail.com",
@@ -15,6 +13,8 @@
     "inputblockedemail" : "johnosborne@yopmail.com",
     "ValidVendor" : "donstrickland@yopmail.com",
     "Invalidformatemail" : "testauto@yopmail",
-    "2FAUser":"johnshaver@yopmail.com"
+    "2FAUser":"johnshaver@yopmail.com",
+    "OtpLink" : "https://dev.alignwell.com/get-key-value/!24@automation"
+    
 
 } 

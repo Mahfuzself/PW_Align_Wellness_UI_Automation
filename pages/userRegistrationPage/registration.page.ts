@@ -1,14 +1,15 @@
 import { expect, Page, Browser } from '@playwright/test';
 import { BrowserContext } from "@playwright/test";
+import path = require('path');
 import { Url } from 'url';
 export default class userRegistrationPage {
   private page : Page
     constructor(page: Page) {
         this.page = page
     }
-    async gotoForOtpValue(Page : Page){
+    async gotoForOtpValue(Page : Page,Url: string){
       await Page.waitForTimeout(2000)
-         await Page.goto("https://dev.alignwell.com/get-key-value/!24@automation")
+         await Page.goto(Url)
         //  await Page.waitForTimeout(1000)
     }
     async gotonewRegisteredMail(Page : Page,URL : string){
@@ -134,9 +135,12 @@ export default class userRegistrationPage {
       }
     }
     async verifyAddNewUserAfterRegistered_Active(Page : Page,user : string){
-      const ele =   await Page.locator(`//td[text()=" ${user} "]/following-sibling::td[2]/div`)//td[text()=" ottojohnsen@yopmail.com "]/following-sibling::td[2]/div
+      //td[text()=" reyesuddin@yopmail.com "]/following-sibling::td[3]
+      //td[text()=" matthewvail@yopmail.com "]/following-sibling::td[2]/div[text()=" Active "]
+      console.log(`//td[text()=" ${user} "]/following-sibling::td[2]/div`)
+      const ele =   await Page.locator(`//td[text()=" ${user} "]/following-sibling::td[2]/div[text()=" Active "]`)
       try {
-             await expect(ele).toContainText("Active")
+            await expect(ele).toHaveScreenshot("Active.png")
       } catch (error) {
         throw new Error(`Login Align Master Admin | User Management | Align User | Added new user | Edit User mail | Completed user registration | Add new user stutus "Active" could not found : ${Error}`)
       }
@@ -151,6 +155,7 @@ export default class userRegistrationPage {
     const ele = await Page.locator("//a[contains(text(),'Align Well User')]")
         await ele.click({delay:1000})
         await this.page.waitForTimeout(1000)
+        await Page.reload()
 }
 
 }

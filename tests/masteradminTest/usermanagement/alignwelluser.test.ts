@@ -2,6 +2,8 @@ import test, { expect } from "@fixtures/basepages";
 import * as data from "testData/login.cred.json"
 import AlignwelluserPage from "@pages/Alignwelluser.page";
 import { Browser, Page } from '@playwright/test';
+import path = require("path");
+
 import { url } from "inspector";
 // import userRegistrationPage from '../../../pages/userRegistrationPage/registration.page';
 const { chromium } = require('playwright');
@@ -14,7 +16,7 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context,
         await loginPage.clickSubmittBtn()
         await page.waitForTimeout(5000)
         const Page = await context.newPage()
-        await registrationPage.gotoForOtpValue(Page)
+        await registrationPage.gotoForOtpValue(Page,data.OtpLink)
         await registrationPage.fillOtpMail(Page,data["2FAUser"])
         // await Page.locator("#EmailPhone").type(mail,{delay:100})
         await Page.waitForTimeout(5000)
@@ -132,7 +134,7 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context,
              await Page.waitForTimeout(5000)
              const page3 = await context.newPage()
              await page3.bringToFront()
-            await registrationPage.gotoForOtpValue(page3)
+            await registrationPage.gotoForOtpValue(page3,data.OtpLink)
             // await page3.goto("https://dev.alignwell.com/get-key-value/!24@automation")
             await page3.reload()
             rendomemail= rendomemail. toLowerCase( );
@@ -183,14 +185,14 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context,
             await registrationPage.inputConfirmPassword(Page)
             await registrationPage.clickRegisterSubmitBtn(Page)
             fullname = firstname+" "+lastname;
-            console.log(fullname)
+            // console.log(fullname)
             await registrationPage.verifyAcoknowledge(Page)
             await registrationPage.clickAcceptBtn(Page)
             // await registrationPage.verifyUserRegisteredSuccessfully(Page)
             await registrationPage.verifyAddNewRegisteredUser(Page,fullname)
             await registrationPage.clickUserManagementPage(Page)
             await registrationPage.clickAlignwellUser(Page)
-            await registrationPage.verifyAddNewUserAfterRegistered_Active(Page,rendomemail)
+             await registrationPage.verifyAddNewUserAfterRegistered_Active(Page,rendomemail)
 
             
             // await Page.locator("//input[@placeholder='Enter your inbox here']").fill(rendomemail)

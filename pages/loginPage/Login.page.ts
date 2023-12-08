@@ -1,4 +1,5 @@
 import { expect, Page } from "@playwright/test";
+import path = require('path');
 export default class LoginPage {
     private page: Page;
     // static login: any;

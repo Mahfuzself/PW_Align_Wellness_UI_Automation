@@ -1,3 +1,4 @@
+ import path = require('path');
 import LoginPage from '@pages/Login.page';
 import { test as baseTest } from '@playwright/test';
 import EventsPage from '@pages/Events.page';
@@ -11,6 +12,7 @@ import standardPage from '@pages/alignuser/Standard.page';
 import vendoradminPage from '@pages/vendoradmin.page';
 import vendorportalPage from '@pages/vendorportal.page';
 import userRegistrationPage from '@pages/registration.page';
+
 const test = baseTest.extend<{
     loginPage: LoginPage;
     eventsPage : EventsPage;
