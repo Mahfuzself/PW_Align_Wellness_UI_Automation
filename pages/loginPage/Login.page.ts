@@ -1,5 +1,7 @@
 import { expect, Page } from "@playwright/test";
+import { TIMEOUT } from "dns";
 import path = require('path');
+import { setTimeout } from "timers";
 export default class LoginPage {
     private page: Page;
     // static login: any;
@@ -16,7 +18,7 @@ export default class LoginPage {
         InvalidUsernameAlert:"//div[text()=' Email address is not a valid email. ']",
         UserListText : "//h1[text()='User List']",
         UserDashbooard:"//h4[text()='Dashboard']",
-        incorrectUserName: "//h4[text()='Incorrect user name']",
+        incorrectUserName: `//h4[text()="This email couldn't find !"]`,
         AccountBlockedAlert: "//h4[text()='Your account has been Locked. Please contact the system administrator.']",
         InvalidFormat:"//span[text()='Invalid email address format']",
     }
@@ -172,7 +174,7 @@ async inputBlockedEmail(blockedemail : string){
 async verifyInvalidUserName(){
     const ele = await this.page.locator(this.LoginPage_Elements.incorrectUserName)
     try {
-        await expect(ele).toContainText("Incorrect user name")
+        await expect(ele).toContainText("This email couldn't find !")
     } catch (error) {
         throw new Error(`Wrong user name alert is not visible : ${Error}`)
     }
@@ -195,6 +197,21 @@ async verifyInvaliadEMailFormat(){
 }
 async clickOTPInputField(){
     await  this.page.locator("(//input[@placeholder='-'])[1]").click()
+}
+// async verifyLoginPageDesign(){
+//     await this.page.waitForLoadState()
+//     expect(await this.page.screenshot({
+//         path: 'screenshots/loginDesign.png',
+//         fullPage: true
+//     })).toMatchSnapshot('loginDesign.png')​
+   
+// }
+async LoginPageMatch(){
+    await this.page.waitForLoadState()
+    await expect(await this.page.screenshot({
+       path: 'screenshots/loginDesign.png',
+       fullPage : true
+    })).toMatchSnapshot('loginDesign.png')
 }
  
 }

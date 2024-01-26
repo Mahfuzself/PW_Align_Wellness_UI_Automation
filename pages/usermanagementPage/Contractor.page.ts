@@ -42,7 +42,7 @@ export default class ContractorPage {
         const ele = this.page.locator(this.ContractorPage_Elements.AddNewContractor)
         try {
              await ele.click({timeout : 2000})
-             await this.page.waitForTimeout(30000)
+             await this.page.waitForTimeout(5000)
         } catch (error) {
             throw new Error(`Add new contractor button elements is not visible , Could not found locator : ${Error}`)
         }
@@ -81,11 +81,8 @@ export default class ContractorPage {
             throw new Error(`Invalid email text element is not visible, Could not found locotor : ${error}`)
         }
     }
-    async InputRendomEmail(){
-        const email = "Test"
-        const randomString = new Date().getTime();
-        const testEmail = `${email}${randomString}@yopmail.com`;
-        await this.page.locator(this.ContractorPage_Elements.inputContarctorEmail).fill(testEmail)
+    async InputRendomEmail(email : string){
+        await this.page.locator(this.ContractorPage_Elements.inputContarctorEmail).fill(email)
         await this.page.waitForTimeout(2000)
     }
     async SearchContarctor_By_FirstName(){
@@ -157,5 +154,13 @@ export default class ContractorPage {
             throw new Error(`Action Three dot | Resend Link | resend link button element is not visible, Could not found locotor : ${error}`)
         }
     }
+    async clickUpdateContactor(){
+        const ele = await this.page.locator('button[type="submit"]')
+        try {
+              await ele.click()
+        } catch (error) {
+           throw new Error(`Login | UserManagement | Contractor | Add new Contractor | Edit Contractor | Update Contractor button could not found : ${Error}`)
+        }
+     }
     
 }

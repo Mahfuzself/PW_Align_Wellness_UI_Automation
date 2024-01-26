@@ -3,7 +3,6 @@ import * as data from "testData/login.cred.json"
 import AlignwelluserPage from "@pages/Alignwelluser.page";
 import { Browser, Page } from '@playwright/test';
 import path = require("path");
-
 import { url } from "inspector";
 // import userRegistrationPage from '../../../pages/userRegistrationPage/registration.page';
 const { chromium } = require('playwright');
@@ -21,14 +20,11 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context,
         // await Page.locator("#EmailPhone").type(mail,{delay:100})
         await Page.waitForTimeout(5000)
         await registrationPage.clickOtpMailSubmittBtn(Page)
-        // await Page.locator("#submitBtn").click({force:true})
-        await Page.locator("#otpValue").focus();
         await Page.locator("#otpValue").selectText();
         await Page.keyboard.press("Control+C");
         await Page.close()
         await  page.bringToFront()
         await loginPage.clickOTPInputField()
-        // await  page.locator("(//input[@placeholder='-'])[1]").click()
         await page.keyboard.press("Control+V")
         await page.waitForTimeout(4000)
         await AlignwellPage.clickUserManagementPage()
@@ -114,7 +110,7 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context,
     //       lastname = await AlignwellPage.generateLastName()
     //       rendomemail = firstname+lastname+"@yopmail.com"
     //       await AlignwellPage.InputRendomEmail(rendomemail)
-    //       await AlignwellPage.selectAdminUser()
+          await AlignwellPage.selectAdminUser()
     //       await AlignwellPage.clikUpdateUserBtn()
     // })
     // await test.step("TC - 10 : Validate Align well user deactivate button is working.",async()=>{
@@ -192,7 +188,7 @@ test("Validate Alignwell user test",async({page,loginPage,AlignwellPage,context,
             await registrationPage.verifyAddNewRegisteredUser(Page,fullname)
             await registrationPage.clickUserManagementPage(Page)
             await registrationPage.clickAlignwellUser(Page)
-             await registrationPage.verifyAddNewUserAfterRegistered_Active(Page,rendomemail)
+            await registrationPage.verifyAddNewUserAfterRegistered_Active(Page,rendomemail)
 
             
             // await Page.locator("//input[@placeholder='Enter your inbox here']").fill(rendomemail)

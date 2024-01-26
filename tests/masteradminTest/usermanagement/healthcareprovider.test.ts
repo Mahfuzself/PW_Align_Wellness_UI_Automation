@@ -1,6 +1,7 @@
 import test, { expect } from "@fixtures/basepages";
 import * as data from "testData/login.cred.json"
 import { Page } from '@playwright/test';
+let firstname = "",lastname="", rendomemail="",fullname = "";
 test("TC - 01 : Validate Add provider empty email message.",async({page,loginPage,HealthcareProviderPage,AlignwellPage}) =>{
     await page.goto("/login")
     await page.waitForTimeout(4000)

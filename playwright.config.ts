@@ -16,14 +16,14 @@ var ReportDate = date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + 
 const config: PlaywrightTestConfig = {
   testDir: './tests',
   testMatch: [
-    // "001login.test.ts",
-   "alignwelluser.test.ts",
+    //  "login.test.ts",
+  //  "alignwelluser.test.ts",
   //  "contractor.test.ts",
   //  "healthcareprovider.test.ts",
   // "broker.test.ts",
   //  "company.test.ts",
   //  "vendoradmin.test.ts",
-  //  "003events.test.ts",
+    "Events.test.ts",
   //  "employeeuser.test.ts",
   //  "usermanagement/Contractor.test.ts",
   // "usermanagement/healthcareprovider.test.ts",
@@ -62,7 +62,6 @@ const config: PlaywrightTestConfig = {
   use: {
     actionTimeout: 10 * 6000,
     navigationTimeout: 30 * 7000,
-    // baseURL: "https://qa-1.testingdxp.com/",
     baseURL:"https://dev.alignwell.com/",
     // baseURL : "https://demo.alignwell.com/login",
     launchOptions: {

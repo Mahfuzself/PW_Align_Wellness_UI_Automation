@@ -8,7 +8,7 @@ export default class userRegistrationPage {
         this.page = page
     }
     async gotoForOtpValue(Page : Page,Url: string){
-      await Page.waitForTimeout(2000)
+      await Page.waitForTimeout(1000)
          await Page.goto(Url)
         //  await Page.waitForTimeout(1000)
     }
@@ -145,6 +145,33 @@ export default class userRegistrationPage {
         throw new Error(`Login Align Master Admin | User Management | Align User | Added new user | Edit User mail | Completed user registration | Add new user stutus "Active" could not found : ${Error}`)
       }
     }
+    async verifyContractorAddedSuccessfully(Page : Page,name : string){
+      const ele = await Page.locator(`//h5[text()="${name}"]`)
+      try {
+          await expect(ele).toContainText(`${name}`)
+          await Page.waitForTimeout(2000)
+      } catch (error) {
+        throw new Error(`Contractor Add new registrered user could not found : ${Error} `)
+      // const ele = await Page.locator('//h4[text()="Contractor added successfully"]')
+      // try {
+      //        await expect(ele).toContainText("Contractor added successfully")
+      // } catch (error) {
+      //   throw new Error(`Add Contractor | Register Contractor | Add contractor successfully mmessage could not found : could not found locotor ${Error}`)
+      // }
+    }
+  }
+  async verifyAddNewContractorAfterRegistered_Active(Page : Page,user : string){
+    //td[text()=" reyesuddin@yopmail.com "]/following-sibling::td[3]
+    //td[text()=" matthewvail@yopmail.com "]/following-sibling::td[2]/div[text()=" Active "]
+    console.log(`//td[text()=" ${user} "]/following-sibling::td[2]/div`)
+    const ele =   await Page.locator(`//td[text()=" ${user} "]/following-sibling::td[2]/div[text()=" Active "]`)
+    try {
+          await expect(ele).toHaveScreenshot("Active.png")
+    } catch (error) {
+      throw new Error(`Login Align Master Admin | User Management | Contractor | Added new user | Edit User mail | Completed user registration | Add new user stutus "Active" could not found : ${Error}`)
+    }
+  }
+    //h4[text()="Contractor added successfully"]
     async clickUserManagementPage(Page : Page){
       await this.page.waitForTimeout(1000)
       const ele = await Page.locator("//a[.='User Management']")
@@ -156,6 +183,15 @@ export default class userRegistrationPage {
         await ele.click({delay:1000})
         await this.page.waitForTimeout(1000)
         await Page.reload()
+}
+async clickContractorPage(Page : Page){
+  const ele = Page.locator("//a[contains(.,'Contractor')]")
+  try {
+      await ele.click()
+      await Page.reload({timeout : 1000})
+  } catch (error) {
+      throw new Error(`Contractor page elements is not visible , Could not found locator : ${Error}`)
+  }
 }
 
 }
