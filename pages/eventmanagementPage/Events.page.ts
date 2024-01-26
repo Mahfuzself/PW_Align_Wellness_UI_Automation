@@ -1,6 +1,7 @@
 import { expect, Page } from "@playwright/test";
 import { TIMEOUT } from 'dns';
 import AlignwelluserPage from '../usermanagementPage/Alignwelluser.page';
+
 export default class EventsPage {
     private page: Page;
     // static login: any;
@@ -79,7 +80,7 @@ export default class EventsPage {
         const testEmail = `${EventName}${randomString}`;
         return testEmail;
     }
-    async inputEvent_DOB(){
+    async inputEvent_Date(){
         await this.page.locator('//i[@class="icon-calendar"]').click({delay : 1000})
         await this.page.locator('//select[@title="Select month"]').selectOption({label : "Jan"},{timeout : 1000})
         await this.page.locator('//select[@title="Select year"]').selectOption({label : "2024"},{timeout : 1000})
@@ -142,6 +143,11 @@ export default class EventsPage {
      }
      async Select_Wifi_Yes(){
         await this.page.locator("#wifi").selectOption({label:"Yes"})
+        
+     }
+     async Select_Electricity_Yes(){
+        await this.page.locator("#electricity").selectOption({label:"Yes"})
+        
  
      }
      async InputNo_Of_Vendor_Event(){
@@ -199,6 +205,7 @@ export default class EventsPage {
     await this.page.locator('//button[text()=" Add "]').click({timeout:1000})
    }
    async ClickNextButton(){
+    await this.page.waitForTimeout(2000)
     await this.page.locator('//button[text()=" Next "]').click({timeout:1000})
     await this.page.waitForTimeout(2000)
    }
@@ -229,13 +236,13 @@ async OpenEnrollmentDate(){
   async inputCompanyInsuranceProvider_Designation(){
     await this.page.locator('#Designation').fill("Software Engineer")
   }
-  async inputContactPesrsonName(){
-     var  ContactName  : String = this.generateFirstName()+" "+this.generateLastName()
-     await this.page.locator('#Contactname').fill(`${ContactName}`)
+  async inputContactPesrsonName(name : string){
+    //  var  ContactName  : String = this.generateFirstName()+" "+this.generateLastName()
+     await this.page.locator('#Contactname').fill(name)
   }
-  async inputContactPesrsonEmail(){
-    let Email = this.generateFirstName() + ""+this.generateLastName()+"@yopmail.com"
-    await this.page.locator('#Contactname').fill(Email)
+  async inputContactPesrsonEmail(email : string){
+    email+="@yopmail.com"
+    await this.page.locator('#Email').fill(email)
  }
   async generateFirstName(){
     let name1 = ["Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred", "Frank", "George", "Hal", "Hank", "Ike", "John", "Jack", "Joe", "Larry", "Monte", "Matthew", "Mark", "Nathan", "Otto", "Paul", "Peter", "Roger", "Roger", "Steve", "Thomas", "Tim", "Ty", "Victor", "Walter","Lulloff", "Maki", "Martin", "McGinnis", "Mills", "Moody", "Moore", "Napier", "Nelson", "Norquist", "Nuttle", "Olson", "Ostrander", "Reamer", "Reardon", "Reyes", "Rice", "Ripka", "Roberts", "Rogers", "Root", "Sandstrom", "Sawyer", "Schlicht", "Schmitt", "Schwager", "Schutz", "Schuster", "Tapia", "Thompson", "Tiernan", "Tisler"];
@@ -262,12 +269,76 @@ async InputContactPerson_PhoneNumber_BD(){
     await this.page.locator("//input[@type='search']").fill("BD")
     await this.page.keyboard.press("Enter")
     await this.page.waitForTimeout(2000)
-    await this.page.locator("input[name='InputPhone']").fill("1568703919")
+    await this.page.locator("input[name='InputPhone']").fill("01568703919")
  
 
  }
+ async checkedPPO(){
+    await this.page.locator('//input[@formcontrolname="ppo"]').click({timeout:500})
+    await this.page.locator('//input-field[@formcontrolname="ppoEmployeePercentage"]').click({timeout:500})
+    await this.page.locator('//input-field[@formcontrolname="ppoEmployeePercentage"]').type('60')
+ }
+ async checkedHMO(){
+    await this.page.locator('//input[@formcontrolname="hmo"]').click({timeout:500})
+    await this.page.locator('//input-field[@formcontrolname="hmoEmployeePercentage"]').click({timeout:500})
+    await this.page.locator('//input-field[@formcontrolname="hmoEmployeePercentage"]').type('40')
+    await this.page.waitForTimeout(1000)
+ }
+//  async inputPPO(){
+//     await this.page.locator('//input-field[@formcontrolname="ppoEmployeePercentage"]').click({timeout:500})
+//     await this.page.locator('//input[@class="form-control ng-valid ng-touched ng-dirty"]').fill('60')
+//  }
+//  async inputHMO(){
+//     await this.page.locator('//input-field[@formcontrolname="hmoEmployeePercentage"]').click({timeout:500})
+//     await this.page.locator('//input[@class="form-control ng-valid ng-touched ng-dirty"]').fill('40')
+//  }
    //label[text()="Insurance Enrollment"]
-   
+   async verifyEventFourthPage(){
+    const ele =  await this.page.locator('//label[text()="Do you offer your employees the following benefits?"]')
+    await expect(ele).toContainText('Do you offer your employees the following benefits?')
+   }
+   async Click_ChiropracticCoverage_Yes(){
+     await this.page.locator('//label[text()="Chiropractic Coverage"]/following-sibling::div[1]/input').click({timeout:100})
+   }
+   async Click_AcupunctureCoverage_NO(){
+    await this.page.locator('//label[text()="Acupuncture Coverage"]/following-sibling::div[2]/input').click({timeout:100})
+  }
+  async Click_PhysicalTherap_Yes(){
+    await this.page.locator('//label[text()="Physical Therapy Coverage"]/following-sibling::div[1]/input').click({timeout:100})
+  }
+  async Click_PodiatryCoverage_NO(){
+    await this.page.locator('//label[text()="Podiatry Coverage"]/following-sibling::div[2]/input').click({timeout:200})
+  }
+  async Click_OrthodontistCoverage_YES(){
+    await this.page.locator('(//label[text()="Orthodontist Coverage"]/following-sibling::div[1]/input)[1]').click({timeout:100})
+  }
+  async Click_MentalHealth_NO(){
+    await this.page.locator('//label[text()="Mental Health"]/following-sibling::div[1]/input').click({timeout:100})
+  }
+  async clickFinalSubmitt(){
+    await this.page.locator('//button[text()=" Submit "]').click()
+    await this.page.waitForTimeout(2000)
+  }
+  async verifyEventAddedSuccessfully(){
+    const ele = await this.page.locator('//h4[text()="Event has been added successfully"]')
+    try {
+           await expect(ele).toContainText('Event has been added successfully')
+    } catch (error) {
+        throw new Error(`Align wellness | Events ManageMent | Events | Add Event | Input page 1 to Page 4 >> event is not added successfully : ${error}`)
+    }
+  }
+  async upload_Event_ProfileImages() {
+    //  const filePath0 = "testData/Images/company.jpg"
+     const fileChooserPromise = this.page.waitForEvent('filechooser');
+   const ele=  await this.page.locator('(//div[@id="dropzone-area"])[1]').click();
+    const fileChooser = await fileChooserPromise;
+    await fileChooser.setFiles('./testData/images/Event.jpg');
+     await this.page.waitForTimeout(5000)
+     await this.page.locator('//button[@class="btn btn-secondary text-white fw-bold mt-3 me-3 btn-with-loader"]').click({timeout:1000})
+     await this.page.waitForTimeout(1000)
+    //  await this.page.mouse.click(5,6)
+    
+}
     
  
 }
