@@ -4,7 +4,7 @@ import * as data from "testData/login.cred.json"
 //import LoginPage from "pages/loginPage/Login.page";
 import { Page } from '@playwright/test';
 import AlignwelluserPage from "@pages/Alignwelluser.page";
-test.only("001Login  -> 01 Validate Login all test cases",async({page,loginPage,registrationPage,context,AlignwellPage})=>{
+test("001Login  -> 01 Validate Login all test cases",async({page,loginPage,registrationPage,context,AlignwellPage})=>{
     await page.goto("/login")
     // await test.step("Validate login page design",async()=>{
     //              await loginPage.LoginPageMatch()
