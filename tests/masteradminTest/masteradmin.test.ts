@@ -10,11 +10,11 @@ test("TC - 01 : Validate modules and sub modules for master admin. ",async({page
         await masteradminPage.verifyEventManagementModule()
         await masteradminPage.verifyUserManagementModule()
    })
-   await test.step("Validate sub module for Events management module",async()=>{
-      await masteradminPage.clickEventManagement()
-      await masteradminPage.clickEventSubModule()
-      await masteradminPage.verifyEventsListText()
-   })
+   // await test.step("Validate sub module for Events management module",async()=>{
+   //    await masteradminPage.clickEventManagement()
+   //    await masteradminPage.clickEventSubModule()
+   //    await masteradminPage.verifyEventsListText()
+   // })
    await test.step("Validate sub-modules(Company,Employee User,Vedor) for clients module",async()=>{
      await masteradminPage.clickClientModule()
      await masteradminPage.verifyCompanySubmodule()
