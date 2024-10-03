@@ -1,7 +1,7 @@
 import test, { expect } from "@fixtures/basepages";
 import * as data from "testData/login.cred.json"
 import { Page } from '@playwright/test';
-test.only("TC - 01 : Validate modules and sub modules for master admin. ",async({page,loginPage,masteradminPage}) =>{
+test("TC - 01 : Validate modules and sub modules for master admin. ",async({page,loginPage,masteradminPage}) =>{
    await page.goto("/login")
    await loginPage.login(data.validmasteradminusername,data.commonpassword)
    await test.step("Validate all module for align master admin",async()=>{
